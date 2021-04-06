@@ -9,7 +9,6 @@
 </head>
 <body>
 	<div>
-		<h1>Loại sản phẩm</h1>
 		<h2>
 			<a href="LoaiSanPhamServlet?action=new">Thêm loại sản phẩm</a>
 			&nbsp;&nbsp;&nbsp;<a href="/ProjectWeb/Admin/mainadmin.jsp">Trang

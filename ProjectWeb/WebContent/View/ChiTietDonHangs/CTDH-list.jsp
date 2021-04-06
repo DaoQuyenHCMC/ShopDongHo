@@ -11,11 +11,15 @@
 </head>
 
 <body>
-<div>
-		<h1>Chi tiết đơn hàng</h1>
+	<div>
 		<h2>
-			<a href="ChiTietDonHangServlet?action=new">Thêm chi tiết đơn hàng</a> &nbsp;&nbsp;&nbsp; 
-			<a href="/ProjectWeb/Admin/mainadmin.jsp">Trang quản lý</a>
+			<c:if test="${empty cart}">
+					<a href="/ProjectWeb/Admin/mainadmin.jsp">Trang quản lý</a>
+			</c:if>
+			<c:if test="${not empty cart}">
+					<a href="/ProjectWeb/DonHangServlet?action=lichsumuahang">Trở về</a>
+			</c:if>
+
 		</h2>
 	</div>
 	<div align="center">
@@ -29,16 +33,12 @@
 				<th>Số lượng</th>
 				<th>Giá</th>
 			</tr>
-			<c:forEach var="ctdh" items="${listOfctdh}">
+			<c:forEach var="ctdh" items="${listctdh}">
 				<tr>
 					<td><c:out value="${ctdh.maDh}" /></td>
 					<td><c:out value="${ctdh.maSp}" /></td>
 					<td><c:out value="${ctdh.soLuong}" /></td>
 					<td><c:out value="${ctdh.gia}" /></td>
-					<td>
-					<a href="ChiTietDonHangServlet?action=edit&id=<c:out value='${ctdh.id}' />">Chỉnh sửa</a>&nbsp;&nbsp;&nbsp;
-					<a href="ChiTietDonHangServlet?action=delete&id=<c:out value='${ctdh.id}' />">Xóa</a>
-					</td>
 				</tr>
 			</c:forEach>
 		</table>

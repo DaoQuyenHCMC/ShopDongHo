@@ -76,6 +76,9 @@ public class SanPhamServlet extends HttpServlet {
 			case "buy":
 				listMuaSanPham(request,response);
 				break;
+			case "sanpham":
+				SanPham(request,response);
+				break;
 			default:
 				listSanPham(request,response);
 				break;
@@ -97,6 +100,12 @@ public class SanPhamServlet extends HttpServlet {
 		List < SanPhamEntity > listOfSanPham = SanPhamDao.getAllSanPham();
 		request.setAttribute("listOfSanPham", listOfSanPham);
 		RequestDispatcher dispatcher=request.getRequestDispatcher("Cart/productshow.jsp");
+		dispatcher.forward(request,response);
+	}
+	private void SanPham(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List < SanPhamEntity > listOfSanPham = SanPhamDao.getAllSanPham();
+		request.setAttribute("listOfSanPham", listOfSanPham);
+		RequestDispatcher dispatcher=request.getRequestDispatcher("Cart/listsanpham.jsp");
 		dispatcher.forward(request,response);
 	}
 	

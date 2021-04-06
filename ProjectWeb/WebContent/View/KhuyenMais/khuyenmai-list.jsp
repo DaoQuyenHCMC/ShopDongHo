@@ -9,7 +9,6 @@
 </head>
 <body>
 	<div>
-		<h1>Thời gian khuyến mãi</h1>
 		<h2>
 			<a href="KhuyenMaiServlet?action=new">Thêm thời gian triển khai khuyến mãi</a>
 			&nbsp;&nbsp;&nbsp; 

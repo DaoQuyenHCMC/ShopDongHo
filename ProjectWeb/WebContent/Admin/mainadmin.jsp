@@ -121,7 +121,6 @@ body {
 	<div class="topnav">
 		<a href="/ProjectWeb/UsersServlet">Tài khoản khách hàng</a> 
 		<a href="/ProjectWeb/DonHangServlet">Đơn hàng</a> 
-		<a href="/ProjectWeb/ChiTietDonHangServlet">Chi tiết đơn hàng</a> 
 		<a href="/ProjectWeb/CTKMServlet">Tạo chương trình khuyến mãi</a> 
 		<a href="/ProjectWeb/KhuyenMaiServlet">Thời gian khuyến mãi</a>
 		<a href="/ProjectWeb/LoaiSanPhamServlet" style="float: right">Loại sản phẩm</a>
@@ -131,7 +130,7 @@ body {
 	<div class="row">
 		<div class="leftcolumn">
 			<div class="card">
-				<h2>UY TÍNH LÀM NÊN THƯƠNG HIỆU</h2>
+				<h2>UY TÍN LÀM NÊN THƯƠNG HIỆU</h2>
 				<h5>Mang lại sự hài lòng cho người tiêu dùng</h5>
 				<div class="fakeimg" style="height: 200px;">
 					<img src="/ProjectWeb/Root/MainPage/category.jpg"

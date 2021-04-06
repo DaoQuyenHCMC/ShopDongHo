@@ -98,6 +98,9 @@ public class CartServlet extends HttpServlet {
 			case "checkthanhtoan":
 				ThanhToan(request, response);
 				break;
+			case "tieptucmuahang":
+				TiepTucMuaHang(request, response);
+				break;
 			default:
 				processRequestt(request, response);
 				break;
@@ -142,6 +145,14 @@ public class CartServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Cart/thanhtoan.jsp");
 		dispatcher.forward(request, response);
 	}
+	private void TiepTucMuaHang(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		String url="UsersServlet?action=checklogin&userName="+user.getUserName()+"&password="+user.getPassword();
+		response.sendRedirect(url);
+	}
+
 
 	protected void ThanhToan(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -193,15 +204,21 @@ public class CartServlet extends HttpServlet {
 		DonHangEntity newdonhang = new DonHangEntity(ngaymua, hoTen, diaChi, sdt, trangThai, user.getUserId(),tongtienthanhtoan);
 		donhangDao.saveDonHang(newdonhang);
 		DonHangEntity donhang=donhangDao.getDonHang(newdonhang.getMaDh());
-		for (int i = 0; i < cartDao.GetSize(); i++) {
-			CartEntity gio = cartDao.getItems(i);
+		for (int i = 0; i < cart.GetSize(); i++) {
+			CartEntity gio = cart.getItems(i);
 			soluongdhct=cart.getItems(i).getQuantity();
 			gia= cart.getItems(i).getGia();
 			ChiTietDonHangEntity newctdh = new ChiTietDonHangEntity(soluongdhct, gia,donhang.getMaDh(), gio.getmaSp());
 			chitietdonhangDao.saveCTDH(newctdh);
 		}
-		url="UsersServlet?action=checklogin?&userName="+user.getUserName()+"&password="+user.getPassword();
-		response.sendRedirect(url);
+		request.setAttribute("tong", newdonhang.getTongTien());
+		request.setAttribute("diaChi", diaChi);
+		request.setAttribute("sdt", sdt);
+		url="Cart/thankyoufororder.jsp";
+		//url="UsersServlet?action=checklogin&userName="+user.getUserName()+"&password="+user.getPassword();
+		//response.sendRedirect(url);
+		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+		dispatcher.forward(request, response);
 	}
 
 	protected void processRequestt(HttpServletRequest request, HttpServletResponse response)
@@ -270,16 +287,16 @@ public class CartServlet extends HttpServlet {
 			cart.addItem(maSp, quantity, giagoc, km, gia, hinh);
 		}
 
-		for (int i = 0; i < cartDao.GetSize(); i++) {
-			CartEntity gio = cartDao.getItems(i);
+		for (int i = 0; i < cart.GetSize(); i++) {
+			CartEntity gio = cart.getItems(i);
 			tong += gio.getGia().doubleValue();
 		}
 
 		request.setAttribute("tong", tong);
 		// Store the new copy of the cart in the session
-		session.setAttribute("cart", cartDao);
+		session.setAttribute("cart", cart);
 
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);
 
 	}

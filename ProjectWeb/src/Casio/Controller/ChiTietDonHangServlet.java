@@ -100,8 +100,15 @@ public class ChiTietDonHangServlet extends HttpServlet {
 
 	private void listCTDH(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		int maDh = Integer.parseInt(request.getParameter("maDh"));
 		List<ChiTietDonHangEntity> listOfctdh = chitietdonhangDao.getAllCTDH();
-		request.setAttribute("listOfctdh", listOfctdh);
+		List<ChiTietDonHangEntity> listctdh= new ArrayList<ChiTietDonHangEntity>();
+		for (int i = 0; i < listOfctdh.size(); i++) {
+			if(listOfctdh.get(i).getMaDh().equals(maDh)) {
+				listctdh.add(listOfctdh.get(i));
+			}
+		}
+		request.setAttribute("listctdh", listctdh);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("View/ChiTietDonHangs/CTDH-list.jsp");
 		dispatcher.forward(request, response);	
 		}

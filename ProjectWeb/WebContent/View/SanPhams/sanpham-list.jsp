@@ -10,7 +10,6 @@
 </head>
 <body>
 	<div>
-		<h1>Sản phẩm</h1>
 		<h2>
 			<a href="SanPhamServlet?action=new">Thêm sản phẩm</a>
 			&nbsp;&nbsp;&nbsp; <a href="/ProjectWeb/Admin/mainadmin.jsp">Trang

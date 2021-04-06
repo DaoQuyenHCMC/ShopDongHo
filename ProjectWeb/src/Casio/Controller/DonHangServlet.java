@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,9 +15,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Casio.Dao.DonHangDao;
+import Casio.Models.ChiTietDonHangEntity;
 import Casio.Models.DonHangEntity;
+import Casio.Models.UsersEntity;
 
 /**
  * Servlet implementation class DonHangServlet
@@ -83,6 +87,9 @@ public class DonHangServlet extends HttpServlet {
 				break;
 			case "update":
 				updateDonHang(request, response);
+				break;
+			case "lichsumuahang":
+				lichSuMuaHang(request, response);
 				break;
 			default:
 				listDonHang(request, response);
@@ -223,5 +230,25 @@ public class DonHangServlet extends HttpServlet {
 		donhangDao.deleteDonHang(maDh);
 		response.sendRedirect("DonHangServlet");
 	}
+	private void lichSuMuaHang(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null) {
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
+		List<DonHangEntity> listOfdonghang = donhangDao.getAllDonHang();
+		List<DonHangEntity> listdonhang= new ArrayList<DonHangEntity>();
+		for (int i = 0; i < listOfdonghang.size(); i++) {
+			if(listOfdonghang.get(i).getUserId()==user.getUserId()) {
+				listdonhang.add(listOfdonghang.get(i));
+			}
+		}
+		request.setAttribute("listdonhang", listdonhang);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("KhachHang/LichSuMuaHang.jsp");
+		dispatcher.forward(request, response);	
+	}
+
 
 }

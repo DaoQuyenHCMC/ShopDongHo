@@ -10,10 +10,10 @@
 </head>
 <body>
 	<div>
-		<h1>Đăng ký tài khoản</h1>
 		<div align="center">
-			<form action="UsersServlet?action=insert4dangky" method="post">
+			<form action="UsersServlet" method="get">
 				<table border="1" cellpadding="5">
+				<caption><h2>Đăng ký tài khoản</h2></caption>
 					<tr>
 						<th>Tên đăng nhập:</th>
 						<td><input type="text" name="userName" size="45"/>
@@ -41,9 +41,11 @@
 					</tr>
 					<tr>
 						<td colspan="2" align="center"><input type="submit"
-							value="Lưu" /></td>
+							value="Đăng ký" /></td>
 					</tr>
+					
 				</table>
+				<input type="hidden" name="action" value="insert4dangky" />
 			</form>
 		</div>
 </body>

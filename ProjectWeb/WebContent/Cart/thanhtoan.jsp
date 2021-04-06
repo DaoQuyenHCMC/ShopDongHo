@@ -17,17 +17,17 @@
             SELECT * from Users;
          </sql:query>
 	<div>
-		<h1>Đơn hàng</h1>
 	</div>
 	<div align="center">
 		<form
-			action="/ProjectWeb/UsersServlet?action=shoppingcontinue"
+			action="/ProjectWeb/CartServlet?action=checkthanhtoan"
 			method="post">
-			<table border="1" cellpadding="5">
-				<input type="hidden" name="tongTien"
+			<input type="hidden" name="tong"
 					value="<c:out value='${tong}' />" />
 				<input type="hidden" name="trangThai" maxlength="10" size="45"
 					value="Chờ xác nhận" />
+			<table border="1" cellpadding="5">
+			<caption><h2>Nhập thông tin người nhận</h2></caption>
 				<tr>
 					<th>Họ tên người nhận:</th>
 					<td><input type="text" name="hoTen" size="45"
@@ -54,7 +54,7 @@
 				</tr>
 				<tr>
 					<td colspan="2" align="center"><input type="submit"
-						value="Lưu" /></td>
+						value="Mua hàng" /></td>
 				</tr>
 			</table>
 		</form>

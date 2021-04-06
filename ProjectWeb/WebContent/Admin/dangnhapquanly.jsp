@@ -10,10 +10,10 @@
 </head>
 <body>
 	<div>
-		<h1>Đăng nhập quản lý</h1>
 		<div align="center">
 			<form action="/ProjectWeb/UsersServlet?action=checkquanly" method="post">
 				<table border="1" cellpadding="5">
+				<caption><h2>Đăng nhập (Quản lý)</h2></caption>
 					<tr>
 						<th>Tên đăng nhập:</th>
 						<td><input type="text" name="userName" size="45" />
@@ -28,7 +28,7 @@
 					</tr>
 					<tr>
 						<td colspan="2" align="center"><input type="submit"
-							value="Lưu" /></td>
+							value="Đăng nhập" /></td>
 					</tr>
 				</table>
 			</form>

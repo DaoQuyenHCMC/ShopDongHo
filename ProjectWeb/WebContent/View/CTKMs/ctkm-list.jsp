@@ -22,7 +22,6 @@
             SELECT * from SanPham;
          </sql:query>
 	<div>
-		<h1>Chương trình khuyến mãi</h1>
 		<h2>
 			<a href="CTKMServlet?action=new">Thêm chương trình khuyến mãi</a>
 			&nbsp;&nbsp;&nbsp; <a href="/ProjectWeb/Admin/mainadmin.jsp">Trang

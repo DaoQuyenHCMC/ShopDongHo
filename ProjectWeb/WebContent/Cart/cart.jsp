@@ -388,7 +388,7 @@ aside {
 			<div class="basket-module">
 				<label for="promo-code"><a
 					href="/ProjectWeb/UsersServlet?action=shoppingcontinue">Tiếp
-						tục mua sắm</a></label>
+						tục mua hàng</a></label>
 			</div>
 		</div>
 		<div class="basket-labels">

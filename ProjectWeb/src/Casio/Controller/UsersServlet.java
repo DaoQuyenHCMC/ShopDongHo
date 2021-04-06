@@ -27,7 +27,9 @@ public class UsersServlet extends HttpServlet {
 	private UsersDao usersDao;
 	private Pattern numberPattern = Pattern.compile("[0-9]");
 	private Pattern phonePattern = Pattern.compile("^(\\d){10}$");
-    Pattern emailPattern = Pattern.compile("\\A(?:[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\\Z");
+	Pattern emailPattern = Pattern.compile(
+			"\\A(?:[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\\Z");
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -104,6 +106,9 @@ public class UsersServlet extends HttpServlet {
 			case "checkquanly":
 				CheckQuanLy(request, response);
 				break;
+			case "dangxuat":
+				DangXuat(request, response);
+				break;
 			default:
 				listUser(request, response);
 				break;
@@ -113,6 +118,14 @@ public class UsersServlet extends HttpServlet {
 		}
 	}
 
+	private void DangXuat(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		session.invalidate();
+		response.sendRedirect("index.html");
+		return;
+	}
+
 	private void listUser(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<UsersEntity> listUser = usersDao.getAllUser();
@@ -120,15 +133,17 @@ public class UsersServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("View/Userss/user-list.jsp");
 		dispatcher.forward(request, response);
 	}
-	
+
 	private void list4UserShoppingContinue(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		UsersEntity user = (UsersEntity) session.getAttribute("user");
 		if (user == null) {
 			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
 		}
 		response.sendRedirect("Cart/UserMuaHang.jsp");
+		return;
 	}
 
 	private void DangKyUser(HttpServletRequest request, HttpServletResponse response)
@@ -148,7 +163,7 @@ public class UsersServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Admin/dangnhapquanly.jsp");
 		dispatcher.forward(request, response);
 	}
-	
+
 	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("View/Userss/user-form.jsp");
@@ -176,14 +191,14 @@ public class UsersServlet extends HttpServlet {
 		Map<String, String> errors = new HashMap<String, String>();
 
 		userName = (userName == null) ? "" : userName;
-		if (userName.length()==0) {
+		if (userName.length() == 0) {
 			errors.put("userName", "Không được để trống");
 		} else if (numberPattern.matcher(userName).find()) {
 			errors.put("userName", "Không được có chữ số");
 		}
 
 		email = (email == null) ? "" : email;
-		if (email.length()==0) {
+		if (email.length() == 0) {
 			errors.put("email", "Không được để trống");
 		} else if (!emailPattern.matcher(email).find()) {
 			errors.put("email", "Phải là địa chỉ email hợp lệ");
@@ -192,7 +207,7 @@ public class UsersServlet extends HttpServlet {
 		}
 
 		password = (password == null) ? "" : password;
-		if (password.length()==0) {
+		if (password.length() == 0) {
 			errors.put("password", "Không được để trống");
 		}
 
@@ -202,7 +217,7 @@ public class UsersServlet extends HttpServlet {
 		}
 
 		address = (address == null) ? "" : address;
-		if (address.length()==0) {
+		if (address.length() == 0) {
 			errors.put("diaChi", "Không được để trống");
 		} else if (numberPattern.matcher(address).find()) {
 			errors.put("diaChi", "Không được có chữ số");
@@ -222,13 +237,14 @@ public class UsersServlet extends HttpServlet {
 			return;
 		}
 
-		UsersEntity newUser = new UsersEntity(userName,password,email,sdt,address,allowed,avata);
+		UsersEntity newUser = new UsersEntity(userName, password, email, sdt, address, allowed, avata);
 		usersDao.saveUser(newUser);
 		response.sendRedirect("UsersServlet");
+		return;
 	}
 
 	private void insert4DangKyUser(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException {
+			throws SQLException, IOException, ServletException {
 		String userName = request.getParameter("userName");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
@@ -240,21 +256,21 @@ public class UsersServlet extends HttpServlet {
 		Map<String, String> errors = new HashMap<String, String>();
 
 		userName = (userName == null) ? "" : userName;
-		if (userName.length()==0) {
+		if (userName.length() == 0) {
 			errors.put("userName", "Không được để trống");
 		} else if (numberPattern.matcher(userName).find()) {
 			errors.put("userName", "Không được có chữ số");
 		}
 
 		email = (email == null) ? "" : email;
-		if (email.length()==0) {
+		if (email.length() == 0) {
 			errors.put("email", "Không được để trống");
 		} else if (!emailPattern.matcher(email).find()) {
 			errors.put("email", "Phải là địa chỉ email hợp lệ");
-		} 
+		}
 
 		password = (password == null) ? "" : password;
-		if (password.length()==0) {
+		if (password.length() == 0) {
 			errors.put("password", "Không được để trống");
 		}
 
@@ -264,7 +280,7 @@ public class UsersServlet extends HttpServlet {
 		}
 
 		address = (address == null) ? "" : address;
-		if (address.length()==0) {
+		if (address.length() == 0) {
 			errors.put("diaChi", "Không được để trống");
 		} else if (numberPattern.matcher(address).find()) {
 			errors.put("diaChi", "Không được có chữ số");
@@ -284,11 +300,13 @@ public class UsersServlet extends HttpServlet {
 			return;
 		}
 
-
 		UsersEntity newUser = new UsersEntity(userName, password, email, sdt, address, allowed, avata);
 		usersDao.saveUser(newUser);
-		request.setAttribute("user", newUser);
-		response.sendRedirect("Cart/UserMuaHang.jsp");
+		HttpSession session = request.getSession();
+		session.setAttribute("user", newUser);
+		response.sendRedirect("EmailListServlet?action=add&"+"email="+email);
+		return;
+		//response.sendRedirect("Cart/UserMuaHang.jsp");
 	}
 
 	private void updateUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
@@ -300,11 +318,10 @@ public class UsersServlet extends HttpServlet {
 		String address = request.getParameter("address");
 		int allowed = Integer.parseInt(request.getParameter("allowed"));
 
-		
-		
 		UsersEntity user = new UsersEntity(userId, userName, password, email, sdt, address, allowed);
 		usersDao.updateUser(user);
 		response.sendRedirect("UsersServlet");
+		return;
 	}
 
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
@@ -317,41 +334,40 @@ public class UsersServlet extends HttpServlet {
 		String url = "KhachHang/dangnhap.jsp";
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
-		
+
 		Map<String, String> errors = new HashMap<String, String>();
-		
+
 		userName = (userName == null) ? "" : userName;
-		if (userName.trim().length()==0) {
+		if (userName.trim().length() == 0) {
 			errors.put("userName", "Không được để trống");
 		} else if (numberPattern.matcher(userName).find()) {
 			errors.put("userName", "Không được có chữ số");
 		}
-		
-		
+
 		List<UsersEntity> listUser = usersDao.getAllUser();
 		for (UsersEntity usersEntity : listUser) {
 			if (usersEntity.getUserName().equals(userName)) {
-				if(usersEntity.getPassword().equals(password)) {
-						url="Cart/UserMuaHang.jsp";
-						HttpSession session = request.getSession();
-						
-						CartDao cart = (CartDao) session.getAttribute("cart");
+				if (usersEntity.getPassword().equals(password)) {
+					url = "Cart/UserMuaHang.jsp";
+					HttpSession session = request.getSession();
 
-						if (cart != null) {
-							cart = new CartDao();
-						}
-						session.setAttribute("user", usersEntity);
-						session.setAttribute("cart", cart);
-						
-						response.sendRedirect(url);
-						return;
+					CartDao cart = (CartDao) session.getAttribute("cart");
+
+					if (cart != null) {
+						cart = new CartDao();
+					}
+					session.setAttribute("user", usersEntity);
+					session.setAttribute("cart", cart);
+
+					response.sendRedirect(url);
+					return;
 				}
 			}
 		}
-		if(url.equals("KhachHang/dangnhap.jsp")) {
+		if (url.equals("KhachHang/dangnhap.jsp")) {
 			errors.put("userName", "Tên tài khoản không tồn tại");
 		}
-		
+
 		if (!errors.isEmpty()) {
 			request.setAttribute("error", errors);
 			try {
@@ -365,40 +381,42 @@ public class UsersServlet extends HttpServlet {
 			}
 			return;
 		}
-		
+
 		response.sendRedirect(url);
+		return;
 	}
-	private void CheckQuanLy(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+
+	private void CheckQuanLy(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException {
 		String url = "Admin/dangnhapquanly.jsp";
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
-		
+
 		Map<String, String> errors = new HashMap<String, String>();
-		
+
 		userName = (userName == null) ? "" : userName;
-		if (userName.trim().length()==0) {
+		if (userName.trim().length() == 0) {
 			errors.put("userName", "Không được để trống");
 		} else if (numberPattern.matcher(userName).find()) {
 			errors.put("userName", "Không được có chữ số");
 		}
-		
-		
+
 		List<UsersEntity> listUser = usersDao.getAllUser();
 		for (UsersEntity usersEntity : listUser) {
 			if (usersEntity.getUserName().equals(userName)) {
-				if(usersEntity.getPassword().equals(password)) {
-					if(usersEntity.getAllowed()==1) {
-						url="Admin/mainadmin.jsp";
+				if (usersEntity.getPassword().equals(password)) {
+					if (usersEntity.getAllowed() == 1) {
+						url = "Admin/mainadmin.jsp";
 						response.sendRedirect(url);
 						return;
 					}
 				}
 			}
 		}
-		if(url.equals("KhachHang/dangnhap.jsp")) {
+		if (url.equals("KhachHang/dangnhap.jsp")) {
 			errors.put("userName", "Tên tài khoản không tồn tại");
 		}
-		
+
 		if (!errors.isEmpty()) {
 			request.setAttribute("error", errors);
 			try {
@@ -412,8 +430,9 @@ public class UsersServlet extends HttpServlet {
 			}
 			return;
 		}
-		
+
 		response.sendRedirect(url);
+		return;
 	}
 
 }

@@ -5,11 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Danh sách tài khoản</title>
 </head>
 <body>
 <div>
-		<h1>Khách hàng</h1>
 		<h2>
 			<a href="/ProjectWeb/Admin/mainadmin.jsp">Trang quản lý</a>
 		</h2>
@@ -17,11 +16,10 @@
 	<div align="center">
 		<table border="1" cellpadding="5">
 			<caption>
-				<h2>Danh sách khách hàng</h2>
+				<h2>Danh sách tài khoản</h2>
 			</caption>
 			<tr>
 				<th>Tên đăng nhập</th>
-				<th>Mật khẩu</th>
 				<th>Email</th>
 				<th>Số điện thoại</th>
 				<th>Địa chỉ</th>
@@ -30,7 +28,6 @@
 			<c:forEach var="user" items="${listUser}">
 				<tr>
 					<td><c:out value="${user.userName}" /></td>
-					<td><c:out value="${user.password}" /></td>
 					<td><c:out value="${user.email}" /></td>
 					<td><c:out value="${user.sdt}" /></td>
 					<td><c:out value="${user.address}" /></td>

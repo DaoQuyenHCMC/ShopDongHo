@@ -9,10 +9,9 @@
 </head>
 <body>
 	<div>
-		<h1>Đơn hàng</h1>
 		<h2>
-			<a href="DonHangServlet?action=new">Thêm đơn hàng</a>
-			&nbsp;&nbsp;&nbsp; <a href="/ProjectWeb/Admin/mainadmin.jsp">Trang quản lý</a>
+		<a href="/ProjectWeb/Admin/mainadmin.jsp">Trang
+				quản lý</a>
 		</h2>
 	</div>
 	<div align="center">
@@ -22,27 +21,29 @@
 			</caption>
 			<tr>
 				<th>Mã đơn hàng</th>
-				<th>Mã khách hàng</th>
 				<th>Họ tên người nhận</th>
 				<th>Địa chỉ</th>
 				<th>Số điện thoại</th>
 				<th>Tổng tiền</th>
+				<th>Ngày mua</th>
 				<th>Trạng thái</th>
 			</tr>
 			<c:forEach var="donhang" items="${listOfdonhang}">
 				<tr>
 					<td><c:out value="${donhang.maDh}" /></td>
-					<td><c:out value="${donhang.userId}" /></td>
 					<td><c:out value="${donhang.hoTen}" /></td>
 					<td><c:out value="${donhang.diaChi}" /></td>
 					<td><c:out value="${donhang.sdt}" /></td>
 					<td><c:out value="${donhang.tongTien}" /></td>
+					<td><c:out value="${donhang.ngayMua}" /></td>
 					<td><c:out value="${donhang.trangThai}" /></td>
 					<td><a
 						href="DonHangServlet?action=edit&maDh=<c:out value='${donhang.maDh}' />">Chỉnh
 							sửa</a>&nbsp;&nbsp;&nbsp; <a
-						href="DonHangServlet?action=delete&maDh=<c:out value='${donhang.maDh}' />">Xóa</a>
-					</td>
+						href="DonHangServlet?action=delete&maDh=<c:out value='${donhang.maDh}' />">Xóa</a>&nbsp;&nbsp;&nbsp;
+						<a
+						href="ChiTietDonHangServlet?maDh=<c:out value='${donhang.maDh}' />">Chi
+							tiết</a></td>
 				</tr>
 			</c:forEach>
 		</table>

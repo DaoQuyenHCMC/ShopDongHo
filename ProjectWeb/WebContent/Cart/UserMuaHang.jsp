@@ -2247,7 +2247,7 @@ table tr td #search {
 					<div id="menu" style="font-family: 'Arial'">
 						<ul>
 							<li><a href="/">TRANG CHỦ</a></li>
-							<li><a href="#" style="text-decoration: none">SẢN PHẨM</a></li>
+							<li><a href="/ProjectWeb/SanPhamServlet?action=sanpham" style="text-decoration: none">SẢN PHẨM</a></li>
 							<li><a href="#" style="text-decoration: none">CỬA HÀNG</a>
 								<ul class="sub-menu" style="z-index: 9999">
 									<li><a href="SuaRuaMat.html">UY TÍNH</a></li>
@@ -2255,7 +2255,7 @@ table tr td #search {
 									<li><a href="KemDuongDa.html">THÁI ĐỘ</a></li>
 									<li><a href="KemDuongMat.html">LÀM NÊN THƯƠNG HIỆU</a></li>
 								</ul></li>
-							<li><a href="Other.html" style="text-decoration: none">KHÁC</a>
+							<li><a href="/ProjectWeb/DonHangServlet?action=lichsumuahang" style="text-decoration: none">ĐƠN HÀNG</a>
 							</li>
 							<li><a href="#" style="text-decoration: none">CẨM NANG</a>
 								<ul class="sub-menu" style="z-index: 9999">
@@ -2263,7 +2263,7 @@ table tr td #search {
 									<li><a href="DoiTra.html">CHÍNH SÁCH ĐỔI TRẢ</a></li>
 									<li><a href="ThanhToan.html">CHÍNH SÁCH THANH TOÁN</a></li>
 								</ul></li>
-							<li><a href="/ProjectWeb/index.html" style="text-decoration: none">ĐĂNG XUẤT</a></li>
+							<li><a href="/ProjectWeb/UsersServlet?action=dangxuat" style="text-decoration: none">ĐĂNG XUẤT</a></li>
 						</ul>
 					</div>
 				</td>
@@ -2353,9 +2353,9 @@ table tr td #search {
 										<a href="#">PRT-B50FE-3</a>
 									</p>
 									<br />
-									<p style="font-size: 16px">87,000đ</p>
+									<p style="font-size: 16px">9,991,000đ</p>
 									<a class="addtocart" type="button"
-										href="/ProjectWeb/CartServlet?action=buy&quantity=1&maSp=PRT-B50FE-3A">Mua
+										href="/ProjectWeb/CartServlet?action=buy&quantity=1&maSp=PRT-B50FE-3">Mua
 										hàng</a>
 								</div>
 							</td>
@@ -2373,7 +2373,7 @@ table tr td #search {
 										<a href="#">PRT-B50FE-3</a>
 									</p>
 									<br />
-									<p style="font-size: 16px">139,000đ</p>
+									<p style="font-size: 16px">9,991,000đ</p>
 								<a class="addtocart" type="button"
 										href="/ProjectWeb/CartServlet?action=buy&quantity=1&maSp=PRT-B50FE-3">Mua
 										hàng</a>
@@ -2395,7 +2395,7 @@ table tr td #search {
 										<a href="#">ECB-20DB-1A</a>
 									</p>
 									<br />
-									<p style="font-size: 16px">5,838,000đ</p>
+									<p style="font-size: 16px">4,549,000đ</p>
 								<a class="addtocart" type="button"
 										href="/ProjectWeb/CartServlet?action=buy&quantity=1&maSp=ECB-20DB-1A">Mua
 										hàng</a>
@@ -2435,7 +2435,7 @@ table tr td #search {
 										<a href="#">SHE-4540CGM-4A</a>
 									</p>
 									<br />
-									<p style="font-size: 16px">209,000đ</p>
+									<p style="font-size: 16px">4,606,000đ</p>
 									<a class="addtocart" type="button"
 										href="/ProjectWeb/CartServlet?action=buy&quantity=1&maSp=SHE-4540CGM-4A">Mua
 										hàng</a>
