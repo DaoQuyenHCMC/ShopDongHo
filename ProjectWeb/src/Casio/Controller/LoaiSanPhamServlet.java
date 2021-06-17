@@ -142,7 +142,7 @@ public class LoaiSanPhamServlet extends HttpServlet {
 		
 		LoaiSanPhamEntity newLoaiSanPham = new LoaiSanPhamEntity(maLoai, tinhTrang);
 		loaiSanPhanDao.saveLoaiSanPham(newLoaiSanPham);
-		response.sendRedirect("LoaiSanPhamServlet");
+		response.sendRedirect("LoaiSanPham");
 	}
 
 	private void updateLoaiSanPham(HttpServletRequest request, HttpServletResponse response)
@@ -174,7 +174,7 @@ public class LoaiSanPhamServlet extends HttpServlet {
 
 		LoaiSanPhamEntity loaiSanPhamUpdate = new LoaiSanPhamEntity(maLoai, tinhTrang);
 		loaiSanPhanDao.updateLoaiSanPham(loaiSanPhamUpdate);
-		response.sendRedirect("LoaiSanPhamServlet");
+		response.sendRedirect("LoaiSanPham");
 	}
 
 	private void deleteLoaiSanPham(HttpServletRequest request, HttpServletResponse response)
@@ -182,7 +182,7 @@ public class LoaiSanPhamServlet extends HttpServlet {
 		String maLoai = request.getParameter("maLoai");
 
 		loaiSanPhanDao.deleteLoaiSanPham(maLoai);
-		response.sendRedirect("LoaiSanPhamServlet");
+		response.sendRedirect("LoaiSanPham");
 	}
 
 }

@@ -11,18 +11,19 @@
 	<div>
 		<h1>Loại sản phẩm</h1>
 		<h2>
-			<a href="/ProjectWeb/Admin/mainadmin.jsp">Trang
-				quản lý</a>
-			&nbsp;&nbsp;&nbsp; <a href="LoaiSanPhamServlet?action=list">Danh
-				sách loại sản phẩm</a>
+			<form action="LoaiSanPham" method="post">
+				<input type="submit" value="Danh sách loại sản phẩm" style="width: 200px" />
+				<input type="hidden" name="action" value="list" />
+			</form>
+			<a href="Admin/mainadmin.jsp">Trang quản lý</a>
 		</h2>
 	</div>
 	<div align="center">
 		<c:if test="${loaisanpham != null}">
-			<form action="LoaiSanPhamServlet?action=update" method="post">
+			<form action="LoaiSanPham" method="post">
 		</c:if>
 		<c:if test="${loaisanpham ==null}">
-			<form action="LoaiSanPhamServlet?action=insert" method="post">
+			<form action="LoaiSanPham" method="post">
 		</c:if>
 		<table border="1" cellpadding="5">
 			<caption>
@@ -61,6 +62,12 @@
 				<td colspan="2" align="center"><input type="submit" value="Lưu" /></td>
 			</tr>
 		</table>
+		<c:if test="${loaisanpham != null}">
+			<input type="hidden" name="action" value="update" />
+		</c:if>
+		<c:if test="${loaisanpham ==null}">
+			<input type="hidden" name="action" value="insert" />
+		</c:if>
 		</form>
 	</div>
 </body>

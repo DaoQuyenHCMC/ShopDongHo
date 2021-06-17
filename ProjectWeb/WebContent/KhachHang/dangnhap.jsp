@@ -11,25 +11,26 @@
 <body>
 	<div>
 		<div align="center">
-			<form action="UsersServlet?action=checklogin" method="post">
+			<form action="TaiKhoan" method="post">
 				<table border="1" cellpadding="5">
 				<caption><h2>Đăng nhập</h2></caption>
 					<tr>
 						<th>Tên đăng nhập:</th>
-						<td><input type="text" name="userName" size="45" />
+						<td><input type="text" name="userName" size="45" maxlength="30"/>
 							<p style="color: red">
 								<c:out value="${error.userName}"></c:out>
 							</p></td>
 					</tr>
 					<tr>
 						<th>Mật khẩu:</th>
-						<td><input type="password" name="password" size="45" />
+						<td><input type="password" name="password" size="45" maxlength="30"/>
 						<p style="color: red"><c:out value="${error.password}"></c:out></p></td>
 					</tr>
 					<tr>
 						<td colspan="2" align="center"><input type="submit"
 							value="Đăng nhập" /></td>
 					</tr>
+					<input type="hidden" name="action" value="checklogin" />
 				</table>
 			</form>
 		</div>

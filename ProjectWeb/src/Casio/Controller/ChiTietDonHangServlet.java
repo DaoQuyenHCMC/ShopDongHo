@@ -14,11 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Casio.Dao.CTKMDao;
 import Casio.Dao.ChiTietDonHangDao;
 import Casio.Dao.SanPhamDao;
 import Casio.Models.ChiTietDonHangEntity;
-import Casio.Models.CtkmEntity;
 import Casio.Models.SanPhamEntity;
 
 /**
@@ -29,7 +27,7 @@ public class ChiTietDonHangServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ChiTietDonHangDao chitietdonhangDao;
 	private SanPhamDao SanPhamDao;
-	private CTKMDao ctkmDao;
+
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -37,7 +35,7 @@ public class ChiTietDonHangServlet extends HttpServlet {
 	public void init() {
 		chitietdonhangDao = new ChiTietDonHangDao();
 		SanPhamDao = new SanPhamDao();
-		ctkmDao = new CTKMDao();
+
 	}
 
 	public ChiTietDonHangServlet() {

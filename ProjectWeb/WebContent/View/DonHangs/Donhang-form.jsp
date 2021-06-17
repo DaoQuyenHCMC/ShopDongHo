@@ -27,10 +27,10 @@
 	</div>
 	<div align="center">
 		<c:if test="${donhang != null}">
-			<form action="DonHangServlet?action=update" method="post">
+			<form action="DonHang" method="post">
 		</c:if>
 		<c:if test="${donhang ==null}">
-			<form action="DonHangServlet?action=insert" method="post">
+			<form action="DonHang" method="post">
 		</c:if>
 		<table border="1" cellpadding="5">
 			<caption>
@@ -46,7 +46,7 @@
 					value="<c:out value='${donhang.tongTien}' />" />
 			</c:if>
 			<tr>
-				<th>Mã khách hàng:</th>
+				<th>Mã đơn hàng:</th>
 				<td><select name="userId">
 						<c:forEach var="kh" items="${listkh.rows}">
 							<option value="<c:out value='${kh.UserID}' />">${kh.UserID}</option>
@@ -107,6 +107,12 @@
 				<td colspan="2" align="center"><input type="submit" value="Lưu" /></td>
 			</tr>
 		</table>
+		<c:if test="${donhang != null}">
+			<input type="hidden" name="action" value="update" />
+		</c:if>
+		<c:if test="${donhang ==null}">
+			<input type="hidden" name="action" value="insert" />
+		</c:if>
 		</form>
 	</div>
 </body>

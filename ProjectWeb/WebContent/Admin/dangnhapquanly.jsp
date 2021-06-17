@@ -11,7 +11,7 @@
 <body>
 	<div>
 		<div align="center">
-			<form action="/ProjectWeb/UsersServlet?action=checkquanly" method="post">
+			<form action="TaiKhoan" method="post">
 				<table border="1" cellpadding="5">
 				<caption><h2>Đăng nhập (Quản lý)</h2></caption>
 					<tr>
@@ -30,6 +30,7 @@
 						<td colspan="2" align="center"><input type="submit"
 							value="Đăng nhập" /></td>
 					</tr>
+					<input type="hidden" name="action" value="checkquanly" />
 				</table>
 			</form>
 		</div>

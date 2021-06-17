@@ -193,7 +193,7 @@ public class SanPhamServlet extends HttpServlet {
 	     SanPhamEntity newSanPham=new SanPhamEntity(maSp, gia, ngayThem
 	     		,soLuongKho,soLuongBan,hinh.trim(), tinhNang, moTa, maLoai);
 	     SanPhamDao.saveSanPham(newSanPham);
-	     response.sendRedirect("SanPhamServlet");
+	     response.sendRedirect("SanPham");
 	}
 	
 	private void updateSanPham(HttpServletRequest request, HttpServletResponse response)
@@ -261,7 +261,7 @@ public class SanPhamServlet extends HttpServlet {
 	    SanPhamEntity SanPhamUpdate = new SanPhamEntity(maSp, gia, ngayThem
 	     		,soLuongKho,soLuongBan,hinh.trim(), tinhNang, moTa, maLoai);
 	    SanPhamDao.updateSanPham(SanPhamUpdate);
-		response.sendRedirect("SanPhamServlet");
+		response.sendRedirect("SanPham");
 	}
 	
 	private void deleteSanPham(HttpServletRequest request, HttpServletResponse response)
@@ -269,7 +269,7 @@ public class SanPhamServlet extends HttpServlet {
 		String maSp = request.getParameter("maSp");
 		
 		SanPhamDao.deleteSanPham(maSp);
-		response.sendRedirect("SanPhamServlet");
+		response.sendRedirect("SanPham");
 	}
 
 }

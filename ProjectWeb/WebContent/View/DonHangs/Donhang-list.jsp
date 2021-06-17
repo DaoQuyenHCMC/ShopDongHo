@@ -37,13 +37,22 @@
 					<td><c:out value="${donhang.tongTien}" /></td>
 					<td><c:out value="${donhang.ngayMua}" /></td>
 					<td><c:out value="${donhang.trangThai}" /></td>
-					<td><a
-						href="DonHangServlet?action=edit&maDh=<c:out value='${donhang.maDh}' />">Chỉnh
-							sửa</a>&nbsp;&nbsp;&nbsp; <a
-						href="DonHangServlet?action=delete&maDh=<c:out value='${donhang.maDh}' />">Xóa</a>&nbsp;&nbsp;&nbsp;
-						<a
-						href="ChiTietDonHangServlet?maDh=<c:out value='${donhang.maDh}' />">Chi
-							tiết</a></td>
+					<td>
+					<form action="DonHang" method="post">
+						<input type="submit" value="Chỉnh sửa" style="width:100px"/>
+						<input type="hidden" name="action" value="edit" />	
+						<input type="hidden" name="maDh" value="<c:out value='${donhang.maDh}' />" />							
+					</form>
+					<form action="DonHang" method="post">
+						<input type="submit" value="Xóa" style="width:100px"/>
+						<input type="hidden" name="action" value="delete" />	
+						<input type="hidden" name="maDh" value="<c:out value='${donhang.maDh}' />" />							
+					</form>
+					<form action="ChiTietDonHang" method="post">
+						<input type="submit" value="Chi tiết" style="width:100px"/>
+						<input type="hidden" name="maDh" value="<c:out value='${donhang.maDh}' />" />							
+					</form>
+					</td>
 				</tr>
 			</c:forEach>
 		</table>

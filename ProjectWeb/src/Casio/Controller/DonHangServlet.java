@@ -220,7 +220,7 @@ public class DonHangServlet extends HttpServlet {
 		}
 		DonHangEntity donhangUpdate = new DonHangEntity(maDh, ngaymua,tongTien, hoTen, diaChi, sdt, trangThai, userId);
 		donhangDao.updateDonHang(donhangUpdate);
-		response.sendRedirect("DonHangServlet");
+		response.sendRedirect("DonHang");
 	}
 
 	private void deleteDonHang(HttpServletRequest request, HttpServletResponse response)
@@ -228,7 +228,7 @@ public class DonHangServlet extends HttpServlet {
 		int maDh = Integer.parseInt(request.getParameter("maDh"));
 
 		donhangDao.deleteDonHang(maDh);
-		response.sendRedirect("DonHangServlet");
+		response.sendRedirect("DonHang");
 	}
 	private void lichSuMuaHang(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {

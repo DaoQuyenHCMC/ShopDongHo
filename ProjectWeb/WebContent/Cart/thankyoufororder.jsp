@@ -170,14 +170,7 @@ div[style*="margin: 16px 0;"] {
 													style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;">
 													<c:out value="${cart.getItems(i).maSp}" /></td>
 											</tr>
-											<tr>
-												<td width="75%" align="left"
-													style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
-													Giá</td>
-												<td width="25%" align="left"
-													style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;">
-													<c:out value="${cart.getItems(i).getGiaGoc()}" /></td>
-											</tr>
+									
 											<tr>
 												<td width="75%" align="left"
 													style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
@@ -189,7 +182,7 @@ div[style*="margin: 16px 0;"] {
 											<tr>
 												<td width="75%" align="left"
 													style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
-													Khuyến mãi</td>
+													Giá</td>
 												<td width="25%" align="left"
 													style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;">
 													<c:out value="${cart.getItems(i).getGia()}" /></td>
@@ -289,9 +282,12 @@ div[style*="margin: 16px 0;"] {
 										<table border="0" cellspacing="0" cellpadding="0">
 											<tr>
 												<td align="center" style="border-radius: 5px;"
-													bgcolor="#66b3b7"><a href="CartServlet?action=tieptucmuahang"
-													style="font-size: 18px; font-family: Open Sans, Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; border-radius: 5px; background-color: #F44336; padding: 15px 30px; border: 1px solid #F44336; display: block;">
-													Mua hàng</a></td>
+													bgcolor="#66b3b7">
+													<form action="GioHang" method="post">
+														<input type="submit" value="Tiếp tục mua hàng" style="font-size: 18px; font-family: Open Sans, Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; border-radius: 5px; background-color: #F44336; padding: 15px 30px; border: 1px solid #F44336; display: block;">
+														<input type="hidden" name="action" value="tieptucmuahang" />						
+													</form>
+												
 											</tr>
 										</table>
 									</td>

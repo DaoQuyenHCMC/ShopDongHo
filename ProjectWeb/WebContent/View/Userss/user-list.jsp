@@ -34,8 +34,16 @@
 					<td><c:if test="${user.allowed eq 1}">Quản lý</c:if>
 					<c:if test="${user.allowed eq 2}">Khách hàng</c:if></td>
 					<td>
-					<a href="UsersServlet?action=edit&id=<c:out value='${user.userId}' />">Chỉnh sửa</a>&nbsp;&nbsp;&nbsp;
-					<a href="UsersServlet?action=delete&id=<c:out value='${user.userId}' />">Xóa</a>
+					<form action="TaiKhoan" method="post">
+							<input type="submit" value="Chỉnh sửa" style="width:100px"/>
+							<input type="hidden" name="action" value="edit" />	
+							<input type="hidden" name="id" value="<c:out value='${user.userId}' />" />							
+					</form>
+					<form action="TaiKhoan" method="post">
+							<input type="submit" value="Xóa" style="width:100px"/>
+							<input type="hidden" name="action" value="delete" />	
+							<input type="hidden" name="id" value="<c:out value='${user.userId}' />" />							
+					</form>
 					</td>
 				</tr>
 			</c:forEach>

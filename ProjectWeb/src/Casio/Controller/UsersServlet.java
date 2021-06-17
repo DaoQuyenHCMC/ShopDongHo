@@ -320,14 +320,14 @@ public class UsersServlet extends HttpServlet {
 
 		UsersEntity user = new UsersEntity(userId, userName, password, email, sdt, address, allowed);
 		usersDao.updateUser(user);
-		response.sendRedirect("UsersServlet");
+		response.sendRedirect("TaiKhoan");
 		return;
 	}
 
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		usersDao.deleteUser(id);
-		response.sendRedirect("UsersServlet");
+		response.sendRedirect("TaiKhoan");
 	}
 
 	private void CheckUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {

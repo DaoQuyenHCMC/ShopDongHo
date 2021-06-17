@@ -386,9 +386,14 @@ aside {
 	<main>
 		<div class="basket">
 			<div class="basket-module">
-				<label for="promo-code"><a
-					href="/ProjectWeb/UsersServlet?action=shoppingcontinue">Tiếp
-						tục mua hàng</a></label>
+				<label for="promo-code">
+					<form action="TaiKhoan" method="post">
+						<input type="submit" value="Tiếp tục mua hàng"
+							style="width: 200px" /> <input type="hidden" name="action"
+							value="shoppingcontinue" />
+					</form>
+				</label>
+
 			</div>
 		</div>
 		<div class="basket-labels">
@@ -417,7 +422,7 @@ aside {
 							</div>
 						</div>
 						<div class="price">
-							<c:out value="${cart.getItems(i).getGiaGoc()}" />
+							<c:out value="${cart.getItems(i).getGia()}" />
 						</div>
 						<div class="quantity">
 							<input type="number"
@@ -428,10 +433,18 @@ aside {
 							<c:out value="${cart.getItems(i).getGia()}" />
 						</div>
 						<div class="remove">
-							<a
-								href="CartServlet?action=buy&quantity=1&maSp=<c:out value='${cart.getItems(i).maSp}' />">Thêm</a>
-							&nbsp;&nbsp;&nbsp;&nbsp; <a
-								href="CartServlet?action=delete&quantity=1&maSp=<c:out value='${cart.getItems(i).maSp}' />">Xóa</a>
+							<form action="GioHang" method="post">
+								<input type="submit" value="Thêm" class="checkout-cta" />
+								<input type="hidden" name="action" value="buy" />
+								<input type="hidden" name="quantity" value="1" />
+								<input type="hidden" name="maSp" value="<c:out value='${cart.getItems(i).maSp}' />" />	
+							</form>
+								<form action="GioHang" method="post">
+								<input type="submit" value="Xóa" class="checkout-cta" />
+								<input type="hidden" name="action" value="delete" />
+								<input type="hidden" name="quantity" value="1" />
+								<input type="hidden" name="maSp" value="<c:out value='${cart.getItems(i).maSp}' />" />	
+							</form>
 						</div>
 					</div>
 
@@ -444,8 +457,15 @@ aside {
 		<label for="promo-code">Tổng tiền: <c:out value="${tong}" /></label>
 
 		<div class="summary-checkout">
-			<a class="checkout-cta" href="CartServlet?action=thanhtoan&tong=<c:out value="${tong}" />">Thanh toán </a>
-			<p style="color: red"><c:out value="${error.tong}"></c:out></p></td>
+			<form action="GioHang" method="post">
+				<input type="submit" value="Thanh toán" class="checkout-cta" /> <input
+					type="hidden" name="action" value="thanhtoan" /> <input
+					type="hidden" name="tong" value="<c:out value="${tong}" />" />
+			</form>
+			<p style="color: red">
+				<c:out value="${error.tong}"></c:out>
+			</p>
+			</td>
 		</div>
 	</main>
 </body>

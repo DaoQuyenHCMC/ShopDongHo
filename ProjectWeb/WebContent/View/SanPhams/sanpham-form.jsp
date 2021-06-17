@@ -9,7 +9,7 @@
 <title>Sản phẩm</title>
 </head>
 <body>
-<sql:setDataSource var="snapshot"
+	<sql:setDataSource var="snapshot"
 		driver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
 		url="jdbc:sqlserver://localhost;integratedSecurity=True;databaseName=CASIO"
 		user="localhost" password="root" />
@@ -21,17 +21,19 @@
 	<div>
 		<h1>Sản phẩm</h1>
 		<h2>
-			<a href="/ProjectWeb/Admin/mainadmin.jsp">Trang quản lý</a>
-			&nbsp;&nbsp;&nbsp; <a href="SanPhamServlet?action=list">Danh sách
-				sản phẩm</a>
+			<form action="SanPham" method="post">
+				<input type="submit" value="Danh sách sản phẩm" style="width: 200px" />
+				<input type="hidden" name="action" value="list" />
+			</form>
+			<a href="Admin/mainadmin.jsp">Trang quản lý</a>
 		</h2>
 	</div>
 	<div align="center">
 		<c:if test="${sanpham != null}">
-			<form action="SanPhamServlet?action=update" method="post">
+			<form action="SanPham" method="post">
 		</c:if>
 		<c:if test="${sanpham ==null}">
-			<form action="SanPhamServlet?action=insert" method="post">
+			<form action="SanPham" method="post">
 		</c:if>
 		<table border="1" cellpadding="5">
 			<caption>
@@ -105,6 +107,12 @@
 			<tr>
 				<td colspan="2" align="center"><input type="submit" value="Lưu" /></td>
 			</tr>
+			<c:if test="${sanpham != null}">
+				<input type="hidden" name="action" value="update" />
+			</c:if>
+			<c:if test="${sanpham ==null}">
+				<input type="hidden" name="action" value="insert" />
+			</c:if>
 		</table>
 		</form>
 	</div>
