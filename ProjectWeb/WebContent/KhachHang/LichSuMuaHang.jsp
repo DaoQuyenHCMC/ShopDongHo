@@ -34,7 +34,7 @@
                         <div class="media">
                             <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
                             <div class="media-body">
-                                <h4 class="media-heading"><a href="ChiTietDonHangServlet?maDh=<c:out value='${donhang.maDh}' />">Chi tiết</a></h4>
+                                <h4 class="media-heading"><a href="ChiTietDonHang?maDh=<c:out value='${donhang.maDh}' />">Chi tiết</a></h4>
                                 <h5 class="media-heading"> Địa chỉ: <a href="#"><c:out value="${donhang.diaChi}" /></a></h5>
                                 <span>Tình trạng: </span><span class="text-success"><strong><c:out value="${donhang.trangThai}" /></strong></span>
                             </div>

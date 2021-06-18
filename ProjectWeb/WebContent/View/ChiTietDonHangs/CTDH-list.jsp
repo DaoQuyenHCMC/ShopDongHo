@@ -17,7 +17,7 @@
 					<a href="/ProjectWeb/Admin/mainadmin.jsp">Trang quản lý</a>
 			</c:if>
 			<c:if test="${not empty cart}">
-					<a href="/ProjectWeb/DonHangServlet?action=lichsumuahang">Trở về</a>
+					<a href="/ProjectWeb/DonHang?action=lichsumuahang">Trở về</a>
 			</c:if>
 
 		</h2>

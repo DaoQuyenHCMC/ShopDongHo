@@ -112,7 +112,7 @@ div[style*="margin: 16px 0;"] {
 														style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400;">
 														<p
 															style="font-size: 18px; font-weight: 400; margin: 0; color: #ffffff;">
-															<a href="CartServlet?action=tieptucmuahang" target="_blank"
+															<a href="Cart?action=tieptucmuahang" target="_blank"
 																style="color: #ffffff; text-decoration: none;">Cửa hàng
 																&nbsp;</a>
 														</p>

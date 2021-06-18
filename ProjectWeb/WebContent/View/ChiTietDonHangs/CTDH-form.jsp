@@ -29,16 +29,16 @@
 		<h1>Chi tiết đơn hàng</h1>
 		<h2>
 			<a href="/ProjectWeb/Admin/mainadmin.jsp">Trang quản lý</a> 
-			&nbsp;&nbsp;&nbsp; <a href="ChiTietDonHangServlet?action=list">Danh
+			&nbsp;&nbsp;&nbsp; <a href="ChiTietDonHang?action=list">Danh
 				sách chi tiết đơn hàng</a>
 		</h2>
 	</div>
 	<div align="center">
 		<c:if test="${ctdh != null}">
-			<form action="ChiTietDonHangServlet?action=update" method="post">
+			<form action="ChiTietDonHang?action=update" method="post">
 		</c:if>
 		<c:if test="${ctdh ==null}">
-			<form action="ChiTietDonHangServlet?action=insert" method="post">
+			<form action="ChiTietDonHang?action=insert" method="post">
 		</c:if>
 		<table border="1" cellpadding="5">
 			<caption>

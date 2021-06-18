@@ -20,8 +20,8 @@
 	<div>
 		<h1>Đơn hàng</h1>
 		<h2>
-			<a href="DonHangServlet?action=new">Thêm đơn hàng</a>
-			&nbsp;&nbsp;&nbsp; <a href="DonHangServlet?action=list">Danh sách
+			<a href="DonHang?action=new">Thêm đơn hàng</a>
+			&nbsp;&nbsp;&nbsp; <a href="DonHang?action=list">Danh sách
 				đơn hàng</a>
 		</h2>
 	</div>
