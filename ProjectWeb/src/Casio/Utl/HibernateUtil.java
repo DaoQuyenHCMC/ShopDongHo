@@ -21,7 +21,7 @@ public class HibernateUtil {
 				//Hibernate settings equivalent to hibernate.cfg.xml's properties
 				Properties settings = new Properties();
 				settings.put(Environment.DRIVER, "com.microsoft.sqlserver.jdbc.SQLServerDriver");
-				settings.put(Environment.URL, "jdbc:sqlserver://localhost;integratedSecurity=True;databaseName=CASIO");
+				settings.put(Environment.URL, "jdbc:sqlserver://localhost:1433;integratedSecurity=true;databaseName=CASIO");
 				settings.put(Environment.USER, "localhost");
 				settings.put(Environment.PASS, "root");
 				settings.put(Environment.DIALECT, "org.hibernate.dialect.SQLServerDialect");
@@ -32,9 +32,7 @@ public class HibernateUtil {
 				
 				configuration.setProperties(settings);
 				configuration.addAnnotatedClass(ChiTietDonHangEntity.class);
-				configuration.addAnnotatedClass(CtkmEntity.class);
 				configuration.addAnnotatedClass(DonHangEntity.class);
-				configuration.addAnnotatedClass(KhuyenMaiEntity.class);
 				configuration.addAnnotatedClass(LoaiSanPhamEntity.class);
 				configuration.addAnnotatedClass(SanPhamEntity.class);
 				configuration.addAnnotatedClass(UsersEntity.class);

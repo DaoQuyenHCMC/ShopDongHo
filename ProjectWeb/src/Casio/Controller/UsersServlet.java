@@ -128,6 +128,13 @@ public class UsersServlet extends HttpServlet {
 
 	private void listUser(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		List<UsersEntity> listUser = usersDao.getAllUser();
 		request.setAttribute("listUser", listUser);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("View/Userss/user-list.jsp");
@@ -139,6 +146,7 @@ public class UsersServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		UsersEntity user = (UsersEntity) session.getAttribute("user");
 		if (user == null) {
+			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
@@ -166,12 +174,26 @@ public class UsersServlet extends HttpServlet {
 
 	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("View/Userss/user-form.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		int id = Integer.parseInt(request.getParameter("id"));
 		UsersEntity existingUser = usersDao.getUser(id);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("View/Userss/user-form.jsp");
@@ -304,12 +326,19 @@ public class UsersServlet extends HttpServlet {
 		usersDao.saveUser(newUser);
 		HttpSession session = request.getSession();
 		session.setAttribute("user", newUser);
-		response.sendRedirect("EmailListServlet?action=add&"+"email="+email);
+		response.sendRedirect("EmailListServlet?action=add&" + "email=" + email);
 		return;
-		//response.sendRedirect("Cart/UserMuaHang.jsp");
+		// response.sendRedirect("Cart/UserMuaHang.jsp");
 	}
 
 	private void updateUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		int userId = Integer.parseInt(request.getParameter("userId"));
 		String userName = request.getParameter("userName");
 		String email = request.getParameter("email");
@@ -318,72 +347,89 @@ public class UsersServlet extends HttpServlet {
 		String address = request.getParameter("address");
 		int allowed = Integer.parseInt(request.getParameter("allowed"));
 
-		UsersEntity user = new UsersEntity(userId, userName, password, email, sdt, address, allowed);
-		usersDao.updateUser(user);
-		response.sendRedirect("UsersServlet");
+		UsersEntity userupdate = new UsersEntity(userId, userName, password, email, sdt, address, allowed);
+		usersDao.updateUser(userupdate);
+		response.sendRedirect("TaiKhoan");
 		return;
 	}
 
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		int id = Integer.parseInt(request.getParameter("id"));
 		usersDao.deleteUser(id);
-		response.sendRedirect("UsersServlet");
+		response.sendRedirect("TaiKhoan");
 	}
 
 	private void CheckUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		CartDao cart = (CartDao) session.getAttribute("cart");
 		String url = "KhachHang/dangnhap.jsp";
-		String userName = request.getParameter("userName");
-		String password = request.getParameter("password");
+		if (user == null) {
+			String userName = request.getParameter("userName");
+			String password = request.getParameter("password");
 
-		Map<String, String> errors = new HashMap<String, String>();
+			Map<String, String> errors = new HashMap<String, String>();
 
-		userName = (userName == null) ? "" : userName;
-		if (userName.trim().length() == 0) {
-			errors.put("userName", "Không được để trống");
-		} else if (numberPattern.matcher(userName).find()) {
-			errors.put("userName", "Không được có chữ số");
-		}
+			userName = (userName == null) ? "" : userName;
+			if (userName.trim().length() == 0) {
+				errors.put("userName", "Không được để trống");
+			} else if (numberPattern.matcher(userName).find()) {
+				errors.put("userName", "Không được có chữ số");
+			}
 
-		List<UsersEntity> listUser = usersDao.getAllUser();
-		for (UsersEntity usersEntity : listUser) {
-			if (usersEntity.getUserName().equals(userName)) {
-				if (usersEntity.getPassword().equals(password)) {
-					url = "Cart/UserMuaHang.jsp";
-					HttpSession session = request.getSession();
+			List<UsersEntity> listUser = usersDao.getAllUser();
+			for (UsersEntity usersEntity : listUser) {
+				if (usersEntity.getUserName().equals(userName)) {
+					if (usersEntity.getPassword().equals(password)) {
+						url = "Cart/UserMuaHang.jsp";
 
-					CartDao cart = (CartDao) session.getAttribute("cart");
+						if (cart != null) {
+							cart = new CartDao();
+						}
+						session.setAttribute("user", usersEntity);
+						session.setAttribute("cart", cart);
 
-					if (cart != null) {
-						cart = new CartDao();
+						response.sendRedirect(url);
+						return;
 					}
-					session.setAttribute("user", usersEntity);
-					session.setAttribute("cart", cart);
-
-					response.sendRedirect(url);
-					return;
 				}
 			}
-		}
-		if (url.equals("KhachHang/dangnhap.jsp")) {
-			errors.put("userName", "Tên tài khoản không tồn tại");
-		}
-
-		if (!errors.isEmpty()) {
-			request.setAttribute("error", errors);
-			try {
-				LoginUser(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if (url.equals("KhachHang/dangnhap.jsp")) {
+				errors.put("userName", "Tên tài khoản không tồn tại");
 			}
-			return;
-		}
 
+			if (!errors.isEmpty()) {
+				request.setAttribute("error", errors);
+				try {
+					LoginUser(request, response);
+				} catch (ServletException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return;
+			}
+			
+		} else {
+			if (cart != null) {
+				cart = new CartDao();
+			}
+			session.setAttribute("cart", cart);
+			url = "Cart/UserMuaHang.jsp";
+
+		}
 		response.sendRedirect(url);
 		return;
+
 	}
 
 	private void CheckQuanLy(HttpServletRequest request, HttpServletResponse response)

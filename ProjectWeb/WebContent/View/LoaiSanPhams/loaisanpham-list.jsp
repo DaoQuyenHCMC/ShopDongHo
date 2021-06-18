@@ -10,9 +10,11 @@
 <body>
 	<div>
 		<h2>
-			<a href="LoaiSanPhamServlet?action=new">Thêm loại sản phẩm</a>
-			&nbsp;&nbsp;&nbsp;<a href="/ProjectWeb/Admin/mainadmin.jsp">Trang
-				quản lý</a>
+			<form action="LoaiSanPham" method="post">
+				<input type="submit" value="Thêm loại sản phẩm" style="width: 200px" />
+				<input type="hidden" name="action" value="new" />
+			</form>
+			<a href="Admin/mainadmin.jsp">Trang quản lý</a>
 		</h2>
 	</div>
 	<div align="center">
@@ -28,10 +30,19 @@
 				<tr>
 					<td><c:out value="${loaisanpham.maLoai}" /></td>
 					<td><c:out value="${loaisanpham.tinhTrang}" /></td>
-					<td><a
-						href="LoaiSanPhamServlet?action=edit&maLoai=<c:out value='${loaisanpham.maLoai}' />">Chỉnh
-							sửa</a>&nbsp;&nbsp;&nbsp; <a
-						href="LoaiSanPhamServlet?action=delete&maLoai=<c:out value='${loaisanpham.maLoai}' />">Xóa</a>
+					<td>
+						<form action="LoaiSanPham" method="post">
+							<input type="submit" value="Chỉnh sửa" style="width: 100px" /> <input
+								type="hidden" name="action" value="edit" /> <input
+								type="hidden" name="maLoai"
+								value="<c:out value='${loaisanpham.maLoai}' />" />
+						</form>
+						<form action="LoaiSanPham" method="post">
+							<input type="submit" value="Xóa" style="width: 100px" /> <input
+								type="hidden" name="action" value="delete" /> <input
+								type="hidden" name="maLoai"
+								value="<c:out value='${loaisanpham.maLoai}' />" />
+						</form>
 					</td>
 				</tr>
 			</c:forEach>

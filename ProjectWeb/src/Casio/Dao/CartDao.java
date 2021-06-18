@@ -25,8 +25,8 @@ public class CartDao {
 	public int GetSize() {
 		return items.size();
 	}
-	public void addItem(String c,int q, BigDecimal giagoc,int km, BigDecimal gia, String hinh) {
-		items.add(new CartEntity(c,q, giagoc,km,gia,hinh));
+	public void addItem(String c,int q, BigDecimal gia, String hinh) {
+		items.add(new CartEntity(c,q,gia,hinh));
 	}
 	public void RemoveItem(String code) {
 		for(int i=0;i<items.size();i++)

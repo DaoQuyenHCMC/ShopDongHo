@@ -4,8 +4,7 @@
 <meta charset="utf-8" />
 <title>Trang Chủ</title>
 <link rel="shortcut icon" href="images/logotitle.png" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
 <script type="text/javascript" src="myjs/Slider.js"></script>
 <script src="magicslideshow.js" type="text/javascript"></script>
 <style type="text/css">
@@ -2223,19 +2222,25 @@ table tr td #search {
 					<div class="container">
 						<div class="container">
 							<div class="login" style="text-align: center">
-								<a href="UsersServlet?action=registration">Đăng ký </a> / <a
-									href="UsersServlet?action=login">Đăng nhập</a>
+							<form action="TaiKhoan" method="post">
+									<input type="submit" value="Đăng ký" style="width:100px"/>
+									<input type="hidden" name="action" value="registration" />							
+							</form>
+							<form action="TaiKhoan" method="post">
+								<input type="submit" value="Đăng nhập" style="width:100px"/>
+								<input type="hidden" name="action" value="login" />							
+							</form>
 							</div>
 							<div class="besties">
 								<a href="/"><img src="Root/MainPage/logobesties.png"
 									class="logo" style="width: 20%" /></a>
 							</div>
 							<div style="margin-top: 2px; padding: 10px">
-								<form action="Search.html">
+								<form action="Search.html" method="get">
 									<input type="Search" id="Search" name="q" placeholder="Search" />
 								</form>
 							</div>
-							<a href="Cart.html"><img src="Root/MainPage/cart.png"
+							<a href="Cart.html" data-method="post"><img src="Root/MainPage/cart.png"
 								class="cart" width="10%" /></a>
 						</div>
 					</div>
@@ -2258,11 +2263,16 @@ table tr td #search {
 							</li>
 							<li><a href="#" style="text-decoration: none">CẨM NANG</a>
 								<ul class="sub-menu" style="z-index: 9999">
-									<li><a href="/ProjectWeb/1_files/Review.html">REVIEWS</a></li>
-									<li><a href="/ProjectWeb/1_files/DoiTra.html">CHÍNH SÁCH ĐỔI TRẢ</a></li>
-									<li><a href="/ProjectWeb/1_files/ThanhToan.html">CHÍNH SÁCH THANH TOÁN</a></li>
+									<li><a href="/ProjectWeb/1_files/Review.html" data-method="get">REVIEWS</a></li>
+									<li><a href="/ProjectWeb/1_files/DoiTra.html" data-method="get">CHÍNH SÁCH ĐỔI TRẢ</a></li>
+									<li><a href="/ProjectWeb/1_files/ThanhToan.html" data-method="get">CHÍNH SÁCH THANH TOÁN</a></li>
 								</ul></li>
-							<li><a href="UsersServlet?action=quanly" style="text-decoration: none">QUẢN LÝ</a></li>
+							<li>
+							<form action="TaiKhoan" method="post">
+								<input type="submit" value="QUẢN LÝ" style="text-decoration: none;  font-size: 18px; height:30px"/>
+								<input type="hidden" name="action" value="quanly" />							
+							</form>
+						</li>
 						</ul>
 					</div>
 				</td>
@@ -2327,7 +2337,7 @@ table tr td #search {
 										onmouseout="this.src='Root/SanPhamImage/PROTREK/PRG-600YB-1.png'" />
 									</a><br />
 									<p class="home-tensp">
-										<a href="#">PRG-600YB-1</a>
+										<a href="#" data-method="get">PRG-600YB-1</a>
 									</p>
 									<br />
 									<p style="font-size: 16px">1,000,000đ</p>
@@ -2345,7 +2355,7 @@ table tr td #search {
 										onmouseout="this.src='Root/SanPhamImage/PROTREK/PRT-B50FE-3.png'" />
 									</a><br />
 									<p class="home-tensp">
-										<a href="#">PRT-B50FE-3</a>
+										<a href="#" data-method="get">PRT-B50FE-3</a>
 									</p>
 									<br />
 									<p style="font-size: 16px">9,991,000đ</p>
@@ -2363,7 +2373,7 @@ table tr td #search {
 										onmouseout="this.src='Root/SanPhamImage/PROTREK/PRT-B50FE-3.png'" />
 									</a><br />
 									<p class="home-tensp">
-										<a href="#">PRT-B50FE-3</a>
+										<a href="#" data-method="get">PRT-B50FE-3</a>
 									</p>
 									<br />
 									<p style="font-size: 16px">9,991,000đ</p>
@@ -2383,7 +2393,7 @@ table tr td #search {
 										onmouseout="this.src='Root/SanPhamImage/EDIFICE/ECB-20DB-1A.png'" />
 									</a><br />
 									<p class="home-tensp">
-										<a href="#">ECB-20DB-1A</a>
+										<a href="#" data-method="get">ECB-20DB-1A</a>
 									</p>
 									<br />
 									<p style="font-size: 16px">4,549,000đ</p>
@@ -2496,9 +2506,8 @@ table tr td #search {
 														Dây đeo bằng da thật Tinh thể saphia. Khả năng chống nước
 														ở độ sâu 50 mét
 													</p>
-													<form action="#">
-														<input type="submit" value="Xem chi tiết" class="button" />
-													</form>
+														<href="#" value="Xem chi tiết" class="button" />
+										
 												</div>
 											</td>
 										</tr>
@@ -2527,9 +2536,9 @@ table tr td #search {
 														hoàn hảo cho cổ tay. Màn hình LCD STN giúp hiển thị thông
 														tin sao cho dễ đọc hơn.
 													</p>
-													<form action="#">
-														<input type="submit" value="Xem chi tiết" class="button" />
-													</form>
+												
+														<href="#" value="Xem chi tiết" class="button" />
+												
 												</div>
 											</td>
 											<td style="padding-top: 27px"><a href="#"> <img
@@ -2573,9 +2582,9 @@ table tr td #search {
 														tỏa sáng. Đây là lựa chọn hoàn hảo cho thời trang đường
 														phố.
 													</p>
-													<form action="#">
-														<input type="submit" value="Xem chi tiết" class="button" />
-													</form>
+										
+														<href="#" value="Xem chi tiết" class="button" />
+											
 												</div>
 											</td>
 										</tr>

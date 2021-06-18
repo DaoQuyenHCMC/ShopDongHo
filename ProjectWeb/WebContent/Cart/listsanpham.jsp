@@ -31,8 +31,13 @@
 					<td><img
 						src="Root/SanPhamImage/${fn:trim(sanpham.maLoai)}/${fn:trim(sanpham.hinh)}.png"
 						width="70px" /></td>
-					<td><a
-						href="/ProjectWeb/CartServlet?action=buy&quantity=1&maSp=<c:out value='${sanpham.maSp}' />">Mua</a>
+					<td>
+					<form action="GioHang" method="post">
+						<input type="submit" value="Mua hàng" class="addtocart"/>
+						<input type="hidden" name="action" value="buy" />	
+						<input type="hidden" name="quantity" value="1" />
+						<input type="hidden" name="maSp" value="<c:out value='${sanpham.maSp}' />" />						
+					</form>
 					</td>
 				</tr>
 			</c:forEach>

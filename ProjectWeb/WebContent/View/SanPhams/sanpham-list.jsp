@@ -11,9 +11,11 @@
 <body>
 	<div>
 		<h2>
-			<a href="SanPhamServlet?action=new">Thêm sản phẩm</a>
-			&nbsp;&nbsp;&nbsp; <a href="/ProjectWeb/Admin/mainadmin.jsp">Trang
-				quản lý</a>
+		<form action="SanPham" method="post">
+			<input type="submit" value="Thêm sản phẩm" style="width:200px"/>
+			<input type="hidden" name="action" value="new" />								
+		</form>
+		<a href="Admin/mainadmin.jsp">Trang quản lý</a>
 		</h2>
 	</div>
 	<div align="center">
@@ -43,10 +45,19 @@
 					<td><img
 						src="Root/SanPhamImage/${fn:trim(sanpham.maLoai)}/${fn:trim(sanpham.hinh)}.png"
 						width="70px" /></td>
-					<td><a
-						href="SanPhamServlet?action=edit&maSp=<c:out value='${sanpham.maSp}' />">Chỉnh
-							sửa</a>&nbsp;&nbsp;&nbsp; <a
-						href="SanPhamServlet?action=delete&maSp=<c:out value='${sanpham.maSp}' />">Xóa</a>
+					<td>
+						<form action="SanPham" method="post">
+							<input type="submit" value="Chỉnh sửa" style="width: 100px" /> <input
+								type="hidden" name="action" value="edit" /> <input
+								type="hidden" name="maSp"
+								value="<c:out value='${sanpham.maSp}' />" />
+						</form>
+						<form action="SanPham" method="post">
+							<input type="submit" value="Xóa" style="width: 100px" /> <input
+								type="hidden" name="action" value="delete" /> <input
+								type="hidden" name="maSp"
+								value="<c:out value='${sanpham.maSp}' />" />
+						</form>
 					</td>
 				</tr>
 			</c:forEach>

@@ -19,13 +19,9 @@
 	<div>
 	</div>
 	<div align="center">
-		<form
-			action="/ProjectWeb/CartServlet?action=checkthanhtoan"
-			method="post">
-			<input type="hidden" name="tong"
-					value="<c:out value='${tong}' />" />
-				<input type="hidden" name="trangThai" maxlength="10" size="45"
-					value="Chờ xác nhận" />
+		<form action="GioHang" method="post">
+			<input type="hidden" name="tong" value="<c:out value='${tong}' />" />
+			<input type="hidden" name="trangThai" maxlength="10" size="45" value="Chờ xác nhận" />
 			<table border="1" cellpadding="5">
 			<caption><h2>Nhập thông tin người nhận</h2></caption>
 				<tr>
@@ -56,6 +52,8 @@
 					<td colspan="2" align="center"><input type="submit"
 						value="Mua hàng" /></td>
 				</tr>
+			
+				<input type="hidden" name="action" value="checkthanhtoan" />	
 			</table>
 		</form>
 	</div>

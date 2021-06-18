@@ -117,14 +117,15 @@ body {
 		<h1>Quản lý</h1>
 		<p>Quản lý cửa hàng</p>
 	</div>
-	<a href="/ProjectWeb/index.html">Đăng xuất</a>
+		<form action="./../TaiKhoan" method="post">
+			<input type="submit" value="Đăng xuất" style="text-decoration: none;  font-size: 18px; height:30px"/>
+			<input type="hidden" name="action" value="dangxuat" />							
+		</form>
 	<div class="topnav">
-		<a href="/ProjectWeb/UsersServlet">Tài khoản khách hàng</a> 
-		<a href="/ProjectWeb/DonHangServlet">Đơn hàng</a> 
-		<a href="/ProjectWeb/CTKMServlet">Tạo chương trình khuyến mãi</a> 
-		<a href="/ProjectWeb/KhuyenMaiServlet">Thời gian khuyến mãi</a>
-		<a href="/ProjectWeb/LoaiSanPhamServlet" style="float: right">Loại sản phẩm</a>
-		<a href="/ProjectWeb/SanPhamServlet" style="float: right">Sản phẩm của cửa hàng</a>
+		<a href="./../TaiKhoan">Tài khoản khách hàng</a> 
+		<a href="./../DonHang">Đơn hàng</a> 
+		<a href="./../LoaiSanPham" style="float: right">Loại sản phẩm</a>
+		<a href="./../SanPham" style="float: right">Sản phẩm của cửa hàng</a>
 	</div>
 
 	<div class="row">

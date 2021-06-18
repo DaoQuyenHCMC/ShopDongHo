@@ -11,22 +11,22 @@
 <body>
 	<div>
 		<div align="center">
-			<form action="UsersServlet" method="get">
+			<form action="TaiKhoan" method="post">
 				<table border="1" cellpadding="5">
 				<caption><h2>Đăng ký tài khoản</h2></caption>
 					<tr>
 						<th>Tên đăng nhập:</th>
-						<td><input type="text" name="userName" size="45"/>
+						<td><input type="text" name="userName" size="45" maxlength="30"/>
 						<p style="color: red"><c:out value="${error.userName}"></c:out></p></td>
 					</tr>
 					<tr>
 						<th>Mật khẩu:</th>
-						<td><input type="password" name="password" size="45" />
+						<td><input type="password" name="password" size="45" maxlength="30"/>
 						<p style="color: red"><c:out value="${error.password}"></c:out></p></td>
 					</tr>
 					<tr>
 						<th>Email:</th>
-						<td><input type="text" name="email" size="45"/>
+						<td><input type="text" name="email" size="45" maxlength="30"/>
 						<p style="color: red"><c:out value="${error.email}"></c:out></p></td>
 					</tr>
 					<tr>
@@ -36,7 +36,7 @@
 					</tr>
 					<tr>
 						<th>Địa chỉ:</th>
-						<td><input type="text" name="address" size="45" />
+						<td><input type="text" name="address" size="45" maxlength="30"/>
 						<p style="color: red"><c:out value="${error.address}"></c:out></p></td>
 					</tr>
 					<tr>

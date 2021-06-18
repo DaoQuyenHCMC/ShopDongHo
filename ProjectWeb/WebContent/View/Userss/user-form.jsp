@@ -13,17 +13,17 @@
 	<div>
 		<h1>Khách hàng</h1>
 		<h2>
-			<a href="UsersServlet?action=new">Thêm khách hàng</a>
-			&nbsp;&nbsp;&nbsp; <a href="UsersServlet?action=list">Danh sách
-				khách hàng</a>
+		<form action="TaiKhoan" method="post">
+			<input type="submit" value="Danh sách khách hàng" style="width:200px"/>			
+		</form>
 		</h2>
 	</div>
 	<div align="center">
 		<c:if test="${user != null}">
-			<form action="UsersServlet?action=update" method="post">
+			<form action="TaiKhoan" method="post">
 		</c:if>
 		<c:if test="${user == null}">
-			<form action="UsersServlet?action=insert" method="post">
+			<form action="TaiKhoan" method="post">
 		</c:if>
 		<table border="1" cellpadding="5">
 			<caption>
@@ -52,6 +52,12 @@
 				<td><input type="number" name="allowed" size="45"
 					value="<c:out value='${user.allowed}' />" /></td>
 			</tr>
+		<c:if test="${user != null}">
+			<input type="hidden" name="action" value="update" />
+		</c:if>
+		<c:if test="${user == null}">
+			<input type="hidden" name="action" value="insert" />
+		</c:if>
 			<tr>
 				<td colspan="2" align="center"><input type="submit" value="Lưu" /></td>
 			</tr>

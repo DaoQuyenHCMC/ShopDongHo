@@ -53,7 +53,10 @@
                         <td>
                         <button type="button" class="btn btn-default">
                             <span class="glyphicon glyphicon-shopping-cart"></span>
-                            <a href="/ProjectWeb/UsersServlet?action=shoppingcontinue">Tiếp tục mua hàng</a>
+                            <form action="TaiKhoan" method="post">
+								<input type="submit" value="Tiếp tục mua hàng" style="text-decoration: none;  font-size: 18px; height:30px"/>
+								<input type="hidden" name="action" value="shoppingcontinue" />							
+							</form>
                         </button></td>
                     </tr>
                 </tbody>

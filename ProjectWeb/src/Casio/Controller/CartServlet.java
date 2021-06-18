@@ -3,8 +3,7 @@ package Casio.Controller;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,20 +11,19 @@ import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Casio.Dao.CTKMDao;
+
 import Casio.Dao.CartDao;
 import Casio.Dao.ChiTietDonHangDao;
 import Casio.Dao.DonHangDao;
 import Casio.Dao.SanPhamDao;
 import Casio.Models.CartEntity;
 import Casio.Models.ChiTietDonHangEntity;
-import Casio.Models.CtkmEntity;
+
 import Casio.Models.DonHangEntity;
 import Casio.Models.SanPhamEntity;
 import Casio.Models.UsersEntity;
@@ -38,7 +36,6 @@ public class CartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CartDao cartDao;
 	private SanPhamDao SanPhamDao;
-	private CTKMDao ctkmDao;
 	private DonHangDao donhangDao;
 	private ChiTietDonHangDao chitietdonhangDao;
 	private Pattern numberPattern = Pattern.compile("[0-9]");
@@ -51,7 +48,6 @@ public class CartServlet extends HttpServlet {
 	public void init() {
 		cartDao = new CartDao();
 		SanPhamDao = new SanPhamDao();
-		ctkmDao = new CTKMDao();
 		donhangDao = new DonHangDao();
 		chitietdonhangDao = new ChiTietDonHangDao();
 	}
@@ -112,8 +108,14 @@ public class CartServlet extends HttpServlet {
 
 	protected void RemoveItem(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String url = "/Cart/cart.jsp";
 		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
+		String url = "/Cart/cart.jsp";
 		CartDao cart = (CartDao) session.getAttribute("cart");
 		
 		String maSp = request.getParameter("maSp");
@@ -140,6 +142,13 @@ public class CartServlet extends HttpServlet {
 
 	private void showNewFormThanhToan(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		double tong = Double.parseDouble(request.getParameter("tong"));
 		request.setAttribute("tong", tong);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Cart/thanhtoan.jsp");
@@ -147,19 +156,22 @@ public class CartServlet extends HttpServlet {
 	}
 	private void TiepTucMuaHang(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		UsersEntity user = (UsersEntity) session.getAttribute("user");
-		String url="UsersServlet?action=checklogin&userName="+user.getUserName()+"&password="+user.getPassword();
+		String url="TaiKhoan?action=checklogin";
 		response.sendRedirect(url);
 	}
 
 
 	protected void ThanhToan(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String url = "/Cart/thanhtoan.jsp";
 		HttpSession session = request.getSession();
-		CartDao cart = (CartDao) session.getAttribute("cart");
 		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
+		String url = "/Cart/thanhtoan.jsp";
+		CartDao cart = (CartDao) session.getAttribute("cart");
 		double tong = Double.parseDouble(request.getParameter("tong"));
 		BigDecimal tongtienthanhtoan=null;
 		Map<String, String> errors = new HashMap<String, String>();
@@ -223,10 +235,14 @@ public class CartServlet extends HttpServlet {
 
 	protected void processRequestt(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		String url = "/Cart/cart.jsp";
-
 		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
+		String url = "/Cart/cart.jsp";
 		CartDao cart = (CartDao) session.getAttribute("cart");
 	
 		if (cart == null) {
@@ -235,6 +251,10 @@ public class CartServlet extends HttpServlet {
 		}
 
 		String maSp = request.getParameter("maSp");
+		if(maSp==null || maSp=="") {
+			response.sendRedirect("Cart/UserMuaHang.jsp");
+			return;
+		}
 		// Find out whether this item is already in the cart.
 		CartEntity item = cart.lookup(maSp);
 		SanPhamEntity sanpham = SanPhamDao.getSanPham(maSp);
@@ -242,10 +262,7 @@ public class CartServlet extends HttpServlet {
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 
 		// Tính tiền sau khi giảm
-		List<CtkmEntity> listofkm = ctkmDao.getAllCTKM();
 		BigDecimal gia = null;
-		double giagiam = 0;
-		int km = 0;
 		String hinh = "/ProjectWeb/Root/SanPhamImage/" + sanpham.getMaLoai().trim() + "/" + sanpham.getHinh().trim()
 				+ ".png";
 		double tong = 0;
@@ -254,37 +271,14 @@ public class CartServlet extends HttpServlet {
 		if (item != null && quantity > 0) {
 			int oldQuantity = item.getQuantity();
 			item.setQuantity(oldQuantity + quantity);
-			BigDecimal giagoc = new BigDecimal(giasanpham.doubleValue());
-			item.setGiaGoc(giagoc);
-			for (CtkmEntity i : listofkm) {
-				if (i.getMaSp().equals(maSp)) {
-					giagiam = (100 - (double) i.getPhanTram()) * sanpham.getGia().doubleValue() / 100;
-					km = i.getPhanTram();
-					break;
-				}
-			}
-			if (giagiam != 0)
-				gia = new BigDecimal(giagiam * (double) (oldQuantity + quantity));
-			else
-				gia = new BigDecimal(giasanpham.doubleValue() * (double) (oldQuantity + quantity));
+			gia = new BigDecimal(giasanpham.doubleValue() * (double) (oldQuantity + quantity));
 			item.setGia(gia);
 			item.setHinh(hinh);
 		}
 
-		if (item == null && quantity > 0) {
-			BigDecimal giagoc = new BigDecimal(giasanpham.doubleValue());
-			for (CtkmEntity i : listofkm) {
-				if (i.getMaSp().equals(maSp)) {
-					giagiam = (100 - (double) i.getPhanTram()) * sanpham.getGia().doubleValue() / 100;
-					km = i.getPhanTram();
-					break;
-				}
-			}
-			if (giagiam != 0)
-				gia = new BigDecimal(giagiam * (double) quantity);
-			else
-				gia = new BigDecimal(giasanpham.doubleValue() * (double) quantity);
-			cart.addItem(maSp, quantity, giagoc, km, gia, hinh);
+		if (item == null && quantity > 0) {	
+			gia = new BigDecimal(giasanpham.doubleValue() * (double) quantity);
+			cart.addItem(maSp, quantity, gia, hinh);
 		}
 
 		for (int i = 0; i < cart.GetSize(); i++) {

@@ -8,8 +8,7 @@
 <meta charset="UTF-8">
 <title>Trang Chủ</title>
 <link rel="shortcut icon" href="images/logotitle.png" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
 <script type="text/javascript" src="/ProjectWeb/myjs/Slider.js"></script>
 <script src="/ProjectWeb/magicslideshow.js" type="text/javascript"></script>
 <style type="text/css">
@@ -2247,7 +2246,12 @@ table tr td #search {
 					<div id="menu" style="font-family: 'Arial'">
 						<ul>
 							<li><a href="/">TRANG CHỦ</a></li>
-							<li><a href="/ProjectWeb/SanPhamServlet?action=sanpham" style="text-decoration: none">SẢN PHẨM</a></li>
+							<li>
+							<form action="./../SanPham" method="post">
+								<input type="submit" value="SẢN PHẨM" style="text-decoration: none;  font-size: 18px; height:30px"/>
+								<input type="hidden" name="action" value="sanpham" />							
+							</form>
+							</li>
 							<li><a href="#" style="text-decoration: none">CỬA HÀNG</a>
 								<ul class="sub-menu" style="z-index: 9999">
 									<li><a href="SuaRuaMat.html">UY TÍNH</a></li>
@@ -2255,7 +2259,11 @@ table tr td #search {
 									<li><a href="KemDuongDa.html">THÁI ĐỘ</a></li>
 									<li><a href="KemDuongMat.html">LÀM NÊN THƯƠNG HIỆU</a></li>
 								</ul></li>
-							<li><a href="/ProjectWeb/DonHangServlet?action=lichsumuahang" style="text-decoration: none">ĐƠN HÀNG</a>
+							<li>
+							<form action="./../DonHang" method="post">
+								<input type="submit" value="ĐƠN HÀNG" style="text-decoration: none;  font-size: 18px; height:30px"/>
+								<input type="hidden" name="action" value="lichsumuahang" />							
+							</form>
 							</li>
 							<li><a href="#" style="text-decoration: none">CẨM NANG</a>
 								<ul class="sub-menu" style="z-index: 9999">
@@ -2263,7 +2271,11 @@ table tr td #search {
 									<li><a href="DoiTra.html">CHÍNH SÁCH ĐỔI TRẢ</a></li>
 									<li><a href="ThanhToan.html">CHÍNH SÁCH THANH TOÁN</a></li>
 								</ul></li>
-							<li><a href="/ProjectWeb/UsersServlet?action=dangxuat" style="text-decoration: none">ĐĂNG XUẤT</a></li>
+							<li>
+							<form action="./../TaiKhoan" method="post">
+								<input type="submit" value="ĐĂNG XUẤT" style="text-decoration: none;  font-size: 18px; height:30px"/>
+								<input type="hidden" name="action" value="dangxuat" />							
+							</form>
 						</ul>
 					</div>
 				</td>
@@ -2314,9 +2326,12 @@ table tr td #search {
 									</p>
 									<br />
 									<p style="font-size: 16px">3,219,000đ</p>
-									<a class="addtocart" type="button"
-										href="/ProjectWeb/CartServlet?action=buy&quantity=1&maSp=SHE-4539M-7A">Mua
-										hàng</a>
+									<form action="./../GioHang" method="post">
+										<input type="submit" value="Mua hàng" class="addtocart"/>
+										<input type="hidden" name="action" value="buy" />	
+										<input type="hidden" name="quantity" value="1" />
+										<input type="hidden" name="maSp" value="SHE-4539M-7A" />						
+									</form>
 								</div>
 							</td>
 							<td>
@@ -2334,9 +2349,12 @@ table tr td #search {
 									</p>
 									<br />
 									<p style="font-size: 16px">1,000,000đ</p>
-									<a class="addtocart" type="button"
-										href="/ProjectWeb/CartServlet?action=buy&quantity=1&maSp=PRG-600YB-1">Mua
-										hàng</a>
+									<form action="./../GioHang" method="post">
+										<input type="submit" value="Mua hàng" class="addtocart"/>
+										<input type="hidden" name="action" value="buy" />	
+										<input type="hidden" name="quantity" value="1" />
+										<input type="hidden" name="maSp" value="PRG-600YB-1" />						
+									</form>
 								</div>
 							</td>
 							<td>
@@ -2354,9 +2372,12 @@ table tr td #search {
 									</p>
 									<br />
 									<p style="font-size: 16px">9,991,000đ</p>
-									<a class="addtocart" type="button"
-										href="/ProjectWeb/CartServlet?action=buy&quantity=1&maSp=PRT-B50FE-3">Mua
-										hàng</a>
+									<form action="./../GioHang" method="post">
+										<input type="submit" value="Mua hàng" class="addtocart"/>
+										<input type="hidden" name="action" value="buy" />	
+										<input type="hidden" name="quantity" value="1" />
+										<input type="hidden" name="maSp" value="PRT-B50FE-3" />						
+									</form>
 								</div>
 							</td>
 							<td>
@@ -2374,9 +2395,12 @@ table tr td #search {
 									</p>
 									<br />
 									<p style="font-size: 16px">9,991,000đ</p>
-								<a class="addtocart" type="button"
-										href="/ProjectWeb/CartServlet?action=buy&quantity=1&maSp=PRT-B50FE-3">Mua
-										hàng</a>
+									<form action="./../GioHang" method="post">
+										<input type="submit" value="Mua hàng" class="addtocart"/>
+										<input type="hidden" name="action" value="buy" />	
+										<input type="hidden" name="quantity" value="1" />
+										<input type="hidden" name="maSp" value="PRT-B50FE-3" />						
+									</form>
 								</div>
 							</td>
 						</tr>
@@ -2396,9 +2420,12 @@ table tr td #search {
 									</p>
 									<br />
 									<p style="font-size: 16px">4,549,000đ</p>
-								<a class="addtocart" type="button"
-										href="/ProjectWeb/CartServlet?action=buy&quantity=1&maSp=ECB-20DB-1A">Mua
-										hàng</a>
+									<form action="./../GioHang" method="post">
+										<input type="submit" value="Mua hàng" class="addtocart"/>
+										<input type="hidden" name="action" value="buy" />	
+										<input type="hidden" name="quantity" value="1" />
+										<input type="hidden" name="maSp" value="ECB-20DB-1A" />						
+									</form>
 								</div>
 							</td>
 							<td>
@@ -2416,9 +2443,12 @@ table tr td #search {
 									</p>
 									<br />
 									<p style="font-size: 16px">3,784,000đ</p>
-									<a class="addtocart" type="button"
-										href="/ProjectWeb/CartServlet?action=buy&quantity=1&maSp=SHE-4540CGL-7A">Mua
-										hàng</a>
+									<form action="./../GioHang" method="post">
+										<input type="submit" value="Mua hàng" class="addtocart"/>
+										<input type="hidden" name="action" value="buy" />	
+										<input type="hidden" name="quantity" value="1" />
+										<input type="hidden" name="maSp" value="SHE-4540CGL-7A" />						
+									</form>
 								</div>
 							</td>
 							<td>
@@ -2436,9 +2466,12 @@ table tr td #search {
 									</p>
 									<br />
 									<p style="font-size: 16px">4,606,000đ</p>
-									<a class="addtocart" type="button"
-										href="/ProjectWeb/CartServlet?action=buy&quantity=1&maSp=SHE-4540CGM-4A">Mua
-										hàng</a>
+									<form action="./../GioHang" method="post">
+										<input type="submit" value="Mua hàng" class="addtocart"/>
+										<input type="hidden" name="action" value="buy" />	
+										<input type="hidden" name="quantity" value="1" />
+										<input type="hidden" name="maSp" value="SHE-4540CGM-4A" />						
+									</form>
 								</div>
 							</td>
 							<td>
@@ -2456,9 +2489,12 @@ table tr td #search {
 									</p>
 									<br />
 									<p style="font-size: 16px">3,855,000</p>
-									<a class="addtocart" type="button"
-										href="/ProjectWeb/CartServlet?action=buy&quantity=1&maSp=EFR-570DB-1AV">Mua
-										hàng</a>
+									<form action="./../GioHang" method="post">
+										<input type="submit" value="Mua hàng" class="addtocart"/>
+										<input type="hidden" name="action" value="buy" />	
+										<input type="hidden" name="quantity" value="1" />
+										<input type="hidden" name="maSp" value="EFR-570DB-1AV" />						
+									</form>
 								</div>
 							</td>
 						</tr>

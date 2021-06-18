@@ -13,14 +13,6 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 
-	<servlet>
-		<servlet-name>KhuyenMaiServlet</servlet-name>
-		<servlet-class>Casio.Controller.KhuyenMaiServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>KhuyenMaiServlet</servlet-name>
-		<url-pattern>/KhuyenMaiServlet</url-pattern>
-	</servlet-mapping>
 
 
 	<servlet>
@@ -29,18 +21,10 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ChiTietDonHangServlet</servlet-name>
-		<url-pattern>/ChiTietDonHangServlet</url-pattern>
+		<url-pattern>/ChiTietDonHang</url-pattern>
 	</servlet-mapping>
 
 
-	<servlet>
-		<servlet-name>CTKMServlet</servlet-name>
-		<servlet-class>Casio.Controller.CTKMServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>CTKMServlet</servlet-name>
-		<url-pattern>/CTKMServlet</url-pattern>
-	</servlet-mapping>
 
 
 	<servlet>
@@ -49,7 +33,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DonHangServlet</servlet-name>
-		<url-pattern>/DonHangServlet</url-pattern>
+		<url-pattern>/DonHang</url-pattern>
 	</servlet-mapping>
 
 
@@ -59,7 +43,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>LoaiSanPhamServlet</servlet-name>
-		<url-pattern>/LoaiSanPhamServlet</url-pattern>
+		<url-pattern>/LoaiSanPham</url-pattern>
 	</servlet-mapping>
 
 
@@ -69,7 +53,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>UsersServlet</servlet-name>
-		<url-pattern>/UsersServlet</url-pattern>
+		<url-pattern>/TaiKhoan</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -78,17 +62,17 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CartServlet</servlet-name>
-		<url-pattern>/CartServlet</url-pattern>
+		<url-pattern>/GioHang</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>CartServlet</servlet-name>
 		<servlet-class>Casio.Controller.CartServlet</servlet-class>
 	</servlet>
-	
+
 	<servlet-mapping>
 		<servlet-name>SanPhamServlet</servlet-name>
-		<url-pattern>/SanPhamServlet</url-pattern>
+		<url-pattern>/SanPham</url-pattern>
 	</servlet-mapping>
 
 
@@ -101,5 +85,67 @@
 		<filter-name>CharacterSetFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+
+	<filter>
+		<filter-name>CorsFilter</filter-name>
+		<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+		<init-param>
+			<param-name>cors.allowed.origins</param-name>
+			<param-value>https://localhost:8443</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.allowed.methods</param-name>
+			<param-value>GET,POST,PUT,DELETE,HEAD,OPTIONS</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.allowed.headers</param-name>
+			<param-value>Content-Type,X-Requested-With,Accept,Authorization,Origin,Access-Control-Request-Method,Access-Control-Request-Headers</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.exposed.headers</param-name>
+			<param-value>Access-Control-Allow-Origin,Access-Control-Allow-Credentials</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CorsFilter</filter-name>
+		<url-pattern> /* </url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>httpHeaderSecurity</filter-name>
+		<filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class>
+		<async-supported>true</async-supported>
+		<init-param>
+			<param-name>antiClickJackingEnabled</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>httpHeaderSecurity</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>securedapp</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+
+	<filter>
+		<filter-name>CacheControlFilter</filter-name>
+		<filter-class>Casio.Utl.CacheControlFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>CacheControlFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 
 </web-app>

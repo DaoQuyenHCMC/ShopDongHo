@@ -1,7 +1,6 @@
 eclipse.preferences.version=1
 encoding//WebContent/Admin/mainadmin.jsp=UTF-8
 encoding//WebContent/KhachHang/LichSuMuaHang.jsp=UTF-8
-encoding//src/Casio/Controller/CTKMServlet.java=UTF-8
 encoding//src/Casio/Controller/CartServlet.java=UTF-8
 encoding//src/Casio/Controller/ChiTietDonHangServlet.java=UTF-8
 encoding//src/Casio/Controller/DonHangServlet.java=UTF-8
