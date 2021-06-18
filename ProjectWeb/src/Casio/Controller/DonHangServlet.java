@@ -103,6 +103,13 @@ public class DonHangServlet extends HttpServlet {
 
 	private void listDonHang(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		List<DonHangEntity> listOfdonghang = donhangDao.getAllDonHang();
 		request.setAttribute("listOfdonhang", listOfdonghang);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("View/DonHangs/Donhang-list.jsp");
@@ -111,12 +118,26 @@ public class DonHangServlet extends HttpServlet {
 
 	private void showNewFormInserDonHang(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("View/DonHangs/Donhang-form.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	private void showEditFormDonHang(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		int maDh = Integer.parseInt(request.getParameter("maDh"));
 		DonHangEntity existingDonhang = donhangDao.getDonHang(maDh);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("View/DonHangs/Donhang-form.jsp");
@@ -126,6 +147,13 @@ public class DonHangServlet extends HttpServlet {
 
 	private void insertDonHang(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		int userId = Integer.parseInt(request.getParameter("userId"));
 		String hoTen = request.getParameter("hoTen");
 		String diaChi = request.getParameter("diaChi");
@@ -174,6 +202,13 @@ public class DonHangServlet extends HttpServlet {
 
 	private void updateDonHang(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		int maDh = Integer.parseInt(request.getParameter("maDh"));
 		int userId = Integer.parseInt(request.getParameter("userId"));
 		String hoTen = request.getParameter("hoTen");
@@ -225,8 +260,14 @@ public class DonHangServlet extends HttpServlet {
 
 	private void deleteDonHang(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null  || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		int maDh = Integer.parseInt(request.getParameter("maDh"));
-
 		donhangDao.deleteDonHang(maDh);
 		response.sendRedirect("DonHang");
 	}
@@ -235,6 +276,7 @@ public class DonHangServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		UsersEntity user = (UsersEntity) session.getAttribute("user");
 		if (user == null) {
+			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}

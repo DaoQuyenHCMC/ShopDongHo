@@ -4,10 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
 <title>Insert title here</title>
 <style type="text/css">
-@charset "utf-8";
 
 @import
 	url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,600);

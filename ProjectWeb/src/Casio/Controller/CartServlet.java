@@ -108,8 +108,14 @@ public class CartServlet extends HttpServlet {
 
 	protected void RemoveItem(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String url = "/Cart/cart.jsp";
 		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
+		String url = "/Cart/cart.jsp";
 		CartDao cart = (CartDao) session.getAttribute("cart");
 		
 		String maSp = request.getParameter("maSp");
@@ -136,6 +142,13 @@ public class CartServlet extends HttpServlet {
 
 	private void showNewFormThanhToan(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		double tong = Double.parseDouble(request.getParameter("tong"));
 		request.setAttribute("tong", tong);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Cart/thanhtoan.jsp");
@@ -143,19 +156,22 @@ public class CartServlet extends HttpServlet {
 	}
 	private void TiepTucMuaHang(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		UsersEntity user = (UsersEntity) session.getAttribute("user");
-		String url="TaiKhoan?action=checklogin&userName="+user.getUserName()+"&password="+user.getPassword();
+		String url="TaiKhoan?action=checklogin";
 		response.sendRedirect(url);
 	}
 
 
 	protected void ThanhToan(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String url = "/Cart/thanhtoan.jsp";
 		HttpSession session = request.getSession();
-		CartDao cart = (CartDao) session.getAttribute("cart");
 		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
+		String url = "/Cart/thanhtoan.jsp";
+		CartDao cart = (CartDao) session.getAttribute("cart");
 		double tong = Double.parseDouble(request.getParameter("tong"));
 		BigDecimal tongtienthanhtoan=null;
 		Map<String, String> errors = new HashMap<String, String>();
@@ -219,10 +235,14 @@ public class CartServlet extends HttpServlet {
 
 	protected void processRequestt(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		String url = "/Cart/cart.jsp";
-
 		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
+		String url = "/Cart/cart.jsp";
 		CartDao cart = (CartDao) session.getAttribute("cart");
 	
 		if (cart == null) {
@@ -231,6 +251,10 @@ public class CartServlet extends HttpServlet {
 		}
 
 		String maSp = request.getParameter("maSp");
+		if(maSp==null || maSp=="") {
+			response.sendRedirect("Cart/UserMuaHang.jsp");
+			return;
+		}
 		// Find out whether this item is already in the cart.
 		CartEntity item = cart.lookup(maSp);
 		SanPhamEntity sanpham = SanPhamDao.getSanPham(maSp);

@@ -13,9 +13,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Casio.Dao.SanPhamDao;
 import Casio.Models.SanPhamEntity;
+import Casio.Models.UsersEntity;
 
 /**
  * Servlet implementation class SanPhamServlet
@@ -89,6 +91,13 @@ public class SanPhamServlet extends HttpServlet {
 		
 	}
 	private void listSanPham(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		List < SanPhamEntity > listOfSanPham = SanPhamDao.getAllSanPham();
 		request.setAttribute("listOfSanPham", listOfSanPham);
 		RequestDispatcher dispatcher=request.getRequestDispatcher("View/SanPhams/sanpham-list.jsp");
@@ -97,12 +106,26 @@ public class SanPhamServlet extends HttpServlet {
 	
 	
 	private void listMuaSanPham(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		List < SanPhamEntity > listOfSanPham = SanPhamDao.getAllSanPham();
 		request.setAttribute("listOfSanPham", listOfSanPham);
 		RequestDispatcher dispatcher=request.getRequestDispatcher("Cart/productshow.jsp");
 		dispatcher.forward(request,response);
 	}
 	private void SanPham(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		List < SanPhamEntity > listOfSanPham = SanPhamDao.getAllSanPham();
 		request.setAttribute("listOfSanPham", listOfSanPham);
 		RequestDispatcher dispatcher=request.getRequestDispatcher("Cart/listsanpham.jsp");
@@ -111,12 +134,26 @@ public class SanPhamServlet extends HttpServlet {
 	
 	private void showNewFormInserSanPham(HttpServletRequest request, HttpServletResponse response)
 		    throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		RequestDispatcher dispatcher=request.getRequestDispatcher("View/SanPhams/sanpham-form.jsp");
 		dispatcher.forward(request, response);
 	}
 	
 	private void showEditFormSanPham(HttpServletRequest request, HttpServletResponse response)
 		    throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		String maSp = request.getParameter("maSp");
 		SanPhamEntity existingSanPham=SanPhamDao.getSanPham(maSp);
 		RequestDispatcher dispatcher=request.getRequestDispatcher("View/SanPhams/sanpham-form.jsp");
@@ -127,6 +164,13 @@ public class SanPhamServlet extends HttpServlet {
 	
 	private void insertSanPham(HttpServletRequest request, HttpServletResponse response)
 		    throws SQLException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		String maSp = request.getParameter("maSp");
 		String maLoai = request.getParameter("maLoai");
 		String giaStr = request.getParameter("gia");
@@ -198,6 +242,13 @@ public class SanPhamServlet extends HttpServlet {
 	
 	private void updateSanPham(HttpServletRequest request, HttpServletResponse response)
 		    throws SQLException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		String maSp = request.getParameter("maSp");
 		String maLoai = request.getParameter("maLoai");
 		String giaStr = request.getParameter("gia");
@@ -266,8 +317,14 @@ public class SanPhamServlet extends HttpServlet {
 	
 	private void deleteSanPham(HttpServletRequest request, HttpServletResponse response)
 		    throws SQLException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		String maSp = request.getParameter("maSp");
-		
 		SanPhamDao.deleteSanPham(maSp);
 		response.sendRedirect("SanPham");
 	}

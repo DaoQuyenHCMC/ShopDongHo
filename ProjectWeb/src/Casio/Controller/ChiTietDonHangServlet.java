@@ -13,11 +13,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Casio.Dao.ChiTietDonHangDao;
 import Casio.Dao.SanPhamDao;
 import Casio.Models.ChiTietDonHangEntity;
 import Casio.Models.SanPhamEntity;
+import Casio.Models.UsersEntity;
 
 /**
  * Servlet implementation class ChiTietDonHangServlet
@@ -98,6 +100,13 @@ public class ChiTietDonHangServlet extends HttpServlet {
 
 	private void listCTDH(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		int maDh = Integer.parseInt(request.getParameter("maDh"));
 		List<ChiTietDonHangEntity> listOfctdh = chitietdonhangDao.getAllCTDH();
 		List<ChiTietDonHangEntity> listctdh= new ArrayList<ChiTietDonHangEntity>();
@@ -113,12 +122,26 @@ public class ChiTietDonHangServlet extends HttpServlet {
 
 	private void showNewFormInserCTDH(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null ||  user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("View/ChiTietDonHangs/CTDH-form.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	private void showEditFormCTDH(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		int id = Integer.parseInt(request.getParameter("id"));
 		ChiTietDonHangEntity existingCTDH = chitietdonhangDao.getCTDH(id);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("View/ChiTietDonHangs/CTDH-form.jsp");
@@ -127,7 +150,13 @@ public class ChiTietDonHangServlet extends HttpServlet {
 	}
 
 	private void insertCTDH(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		int maDh = Integer.parseInt(request.getParameter("maDh"));
 		String maSp = request.getParameter("maSp");
 		SanPhamEntity existingSanPham = SanPhamDao.getSanPham(maSp);
@@ -168,6 +197,13 @@ public class ChiTietDonHangServlet extends HttpServlet {
 	}
 
 	private void updateCTDH(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		int id = Integer.parseInt(request.getParameter("id"));
 		int maDh = Integer.parseInt(request.getParameter("maDh"));
 		String maSp = request.getParameter("maSp");
@@ -207,8 +243,14 @@ public class ChiTietDonHangServlet extends HttpServlet {
 	}
 
 	private void deleteCTDH(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		int id = Integer.parseInt(request.getParameter("id"));
-
 		chitietdonhangDao.deleteCTDH(id);
 		response.sendRedirect("ChiTietDonHangServlet");
 	}

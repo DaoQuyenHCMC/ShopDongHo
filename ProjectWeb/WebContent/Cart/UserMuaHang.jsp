@@ -8,8 +8,7 @@
 <meta charset="UTF-8">
 <title>Trang Chủ</title>
 <link rel="shortcut icon" href="images/logotitle.png" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
 <script type="text/javascript" src="/ProjectWeb/myjs/Slider.js"></script>
 <script src="/ProjectWeb/magicslideshow.js" type="text/javascript"></script>
 <style type="text/css">

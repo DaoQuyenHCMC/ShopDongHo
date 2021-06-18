@@ -11,9 +11,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Casio.Dao.LoaiSanPhanDao;
 import Casio.Models.LoaiSanPhamEntity;
+import Casio.Models.UsersEntity;
 
 /**
  * Servlet implementation class LoaiSanPhamServlet
@@ -92,6 +94,13 @@ public class LoaiSanPhamServlet extends HttpServlet {
 
 	private void listLoaiSanPham(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		List<LoaiSanPhamEntity> listOfLoaiSanPham = loaiSanPhanDao.getAllLoaiSanPham();
 		request.setAttribute("listOfLoaiSanPham", listOfLoaiSanPham);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("View/LoaiSanPhams/loaisanpham-list.jsp");
@@ -100,12 +109,26 @@ public class LoaiSanPhamServlet extends HttpServlet {
 
 	private void showNewFormInserLoaiSanPham(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("View/LoaiSanPhams/loaisanpham-form.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	private void showEditFormLoaiSanPham(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		String maLoai = request.getParameter("maLoai");
 		LoaiSanPhamEntity existingLoaiSanPham = loaiSanPhanDao.getLoaiSanPham(maLoai);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("View/LoaiSanPhams/loaisanpham-form.jsp");
@@ -115,6 +138,13 @@ public class LoaiSanPhamServlet extends HttpServlet {
 
 	private void insertLoaiSanPham(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		String maLoai = request.getParameter("maLoai");
 		String tinhTrang = request.getParameter("tinhTrang");
 		
@@ -147,6 +177,13 @@ public class LoaiSanPhamServlet extends HttpServlet {
 
 	private void updateLoaiSanPham(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		String maLoai = request.getParameter("maLoai");
 		String tinhTrang = request.getParameter("tinhTrang");
 		
@@ -179,8 +216,14 @@ public class LoaiSanPhamServlet extends HttpServlet {
 
 	private void deleteLoaiSanPham(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
+		HttpSession session = request.getSession();
+		UsersEntity user = (UsersEntity) session.getAttribute("user");
+		if (user == null || user.getAllowed()!=1) {
+			session.invalidate();
+			response.sendRedirect("error/errorShoppingContinue.html");
+			return;
+		}
 		String maLoai = request.getParameter("maLoai");
-
 		loaiSanPhanDao.deleteLoaiSanPham(maLoai);
 		response.sendRedirect("LoaiSanPham");
 	}
