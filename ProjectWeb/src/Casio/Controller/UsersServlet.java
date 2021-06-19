@@ -27,6 +27,8 @@ public class UsersServlet extends HttpServlet {
 	private UsersDao usersDao;
 	private Pattern numberPattern = Pattern.compile("[0-9]");
 	private Pattern phonePattern = Pattern.compile("^(\\d){10}$");
+	private Pattern chuthuongPattern = Pattern.compile(".*[a-z].*");
+	private Pattern chuhoaPattern = Pattern.compile(".*[A-Z].*");
 	Pattern emailPattern = Pattern.compile(
 			"\\A(?:[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\\Z");
 
@@ -294,6 +296,14 @@ public class UsersServlet extends HttpServlet {
 		password = (password == null) ? "" : password;
 		if (password.length() == 0) {
 			errors.put("password", "Không được để trống");
+		}else if (password.length() <8){
+			errors.put("password", "Mật khẩu ít nhất 8 ký tự");
+		}else if (!chuthuongPattern.matcher(password).find()){
+			errors.put("password", "Mật khẩu phải gồm chữ thường");
+		}else if (!chuhoaPattern.matcher(password).find()){
+			errors.put("password", "Mật khẩu phải gồm chữ hoa");
+		}else if (!numberPattern.matcher(password).find()){
+			errors.put("password", "Mật khẩu phải gồm chữ số");
 		}
 
 		sdt = (sdt == null) ? "" : sdt;
