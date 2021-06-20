@@ -173,9 +173,7 @@ public class DonHangServlet extends HttpServlet {
 		diaChi = (diaChi == null) ? "" : diaChi;
 		if (diaChi.length()==0) {
 			errors.put("diaChi", "Không được để trống");
-		} else if (numberPattern.matcher(diaChi).find()) {
-			errors.put("diaChi", "Không được có chữ số");
-		}
+		} 
 
 		sdt = (sdt == null) ? "" : sdt;
 		if (!phonePattern.matcher(sdt).find()) {

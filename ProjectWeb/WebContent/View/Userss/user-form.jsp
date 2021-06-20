@@ -11,7 +11,6 @@
 </head>
 <body>
 	<div>
-		<h1>Khách hàng</h1>
 		<h2>
 		<form action="TaiKhoan" method="post">
 			<input type="submit" value="Danh sách khách hàng" style="width:200px"/>			

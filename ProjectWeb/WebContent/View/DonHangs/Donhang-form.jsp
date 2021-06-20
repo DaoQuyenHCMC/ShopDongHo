@@ -20,8 +20,12 @@
 	<div>
 		<h1>Đơn hàng</h1>
 		<h2>
-			<a href="DonHangServlet?action=new">Thêm đơn hàng</a>
-			&nbsp;&nbsp;&nbsp; <a href="DonHangServlet?action=list">Danh sách
+			<form action="TaiKhoan" method="post">
+				<input type="submit" value="Trang quản lý" style="width: 200px" />
+				<input type="hidden" name="action" value="checkquanly" />		
+					
+			</form>
+			&nbsp;&nbsp;&nbsp; <a href="DonHang">Danh sách
 				đơn hàng</a>
 		</h2>
 	</div>

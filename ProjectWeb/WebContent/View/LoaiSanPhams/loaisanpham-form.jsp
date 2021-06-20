@@ -9,13 +9,15 @@
 </head>
 <body>
 	<div>
-		<h1>Loại sản phẩm</h1>
 		<h2>
 			<form action="LoaiSanPham" method="post">
 				<input type="submit" value="Danh sách loại sản phẩm" style="width: 200px" />
 				<input type="hidden" name="action" value="list" />
 			</form>
-			<a href="Admin/mainadmin.jsp">Trang quản lý</a>
+			<form action="TaiKhoan" method="post">
+				<input type="submit" value="Trang quản lý" style="width: 200px" />
+				<input type="hidden" name="action" value="checkquanly" />		
+			</form>
 		</h2>
 	</div>
 	<div align="center">

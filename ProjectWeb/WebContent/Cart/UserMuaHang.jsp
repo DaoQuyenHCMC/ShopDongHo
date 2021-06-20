@@ -2235,7 +2235,7 @@ table tr td #search {
 									<input type="Search" id="Search" name="q" placeholder="Search" />
 								</form>
 							</div>
-							<a href="Cart.html"><img src="/ProjectWeb/Root/MainPage/cart.png"
+							<a href="#"><img src="/ProjectWeb/Root/MainPage/cart.png"
 								class="cart" width="10%" /></a>
 						</div>
 					</div>
@@ -2245,7 +2245,7 @@ table tr td #search {
 				<td colspan="2">
 					<div id="menu" style="font-family: 'Arial'">
 						<ul>
-							<li><a href="/">TRANG CHỦ</a></li>
+							<li><a href="#">TRANG CHỦ</a></li>
 							<li>
 							<form action="./../SanPham" method="post">
 								<input type="submit" value="SẢN PHẨM" style="text-decoration: none;  font-size: 18px; height:30px"/>
@@ -2254,10 +2254,10 @@ table tr td #search {
 							</li>
 							<li><a href="#" style="text-decoration: none">CỬA HÀNG</a>
 								<ul class="sub-menu" style="z-index: 9999">
-									<li><a href="SuaRuaMat.html">UY TÍNH</a></li>
-									<li><a href="KemChongNang.html">CHẤT LƯỢNG</a></li>
-									<li><a href="KemDuongDa.html">THÁI ĐỘ</a></li>
-									<li><a href="KemDuongMat.html">LÀM NÊN THƯƠNG HIỆU</a></li>
+									<li><a href="#">UY TÍNH</a></li>
+									<li><a href="#">CHẤT LƯỢNG</a></li>
+									<li><a href="#">THÁI ĐỘ</a></li>
+									<li><a href="#">LÀM NÊN THƯƠNG HIỆU</a></li>
 								</ul></li>
 							<li>
 							<form action="./../DonHang" method="post">
@@ -2267,9 +2267,9 @@ table tr td #search {
 							</li>
 							<li><a href="#" style="text-decoration: none">CẨM NANG</a>
 								<ul class="sub-menu" style="z-index: 9999">
-									<li><a href="Review.html">REVIEWS</a></li>
-									<li><a href="DoiTra.html">CHÍNH SÁCH ĐỔI TRẢ</a></li>
-									<li><a href="ThanhToan.html">CHÍNH SÁCH THANH TOÁN</a></li>
+									<li><a href="./../1_files/Review.html">REVIEWS</a></li>
+									<li><a href="./../1_files/DoiTra.html">CHÍNH SÁCH ĐỔI TRẢ</a></li>
+									<li><a href="./../1_files/ThanhToan.html">CHÍNH SÁCH THANH TOÁN</a></li>
 								</ul></li>
 							<li>
 							<form action="./../TaiKhoan" method="post">
@@ -2285,20 +2285,6 @@ table tr td #search {
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td style="text-align: center">
-					<div class="MagicSlideshow"
-						data-options="slide-duration:1500;effect:random;"
-						style="text-align: justify">
-						<img src="/ProjectWeb/Root/SanPhamImage/BABY-G/BA-110BC-1A.png"
-							style="width: 100%; cursor: pointer" /> <img
-							src="/ProjectWeb/Root/SanPhamImage/EDIFICE/ECB-10PB-1A.png"
-							style="width: 100%; cursor: pointer" /> <img
-							src="/ProjectWeb/Root/SanPhamImage/G-SHOCK/GWF-A1000-1A2.jpg"
-							style="width: 100%; cursor: pointer" />
-					</div>
-				</td>
-			</tr>
 			<tr style="background-color: whitesmoke">
 				<td colspan="4" style="padding: 20px">
 					<p style="font-size: 30px; font-weight: bold; color: #ffa5a5">
@@ -2424,7 +2410,7 @@ table tr td #search {
 										<input type="submit" value="Mua hàng" class="addtocart"/>
 										<input type="hidden" name="action" value="buy" />	
 										<input type="hidden" name="quantity" value="1" />
-										<input type="hidden" name="maSp" value="ECB-20DB-1A" />						
+										<input type="hidden" name="maSp" value="EFR-570DB-1AV" />						
 									</form>
 								</div>
 							</td>
