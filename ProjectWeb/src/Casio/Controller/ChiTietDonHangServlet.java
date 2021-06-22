@@ -30,7 +30,6 @@ public class ChiTietDonHangServlet extends HttpServlet {
 	private ChiTietDonHangDao chitietdonhangDao;
 	private SanPhamDao SanPhamDao;
 
-
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -101,158 +100,194 @@ public class ChiTietDonHangServlet extends HttpServlet {
 	private void listCTDH(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		UsersEntity user = (UsersEntity) session.getAttribute("user");
-		if (user == null || user.getAllowed()!=1) {
+		try {
+			UsersEntity user = (UsersEntity) session.getAttribute("user");
+			if (user == null || user.getAllowed() != 1) {
+				session.invalidate();
+				response.sendRedirect("error/errorShoppingContinue.html");
+				return;
+			}
+			int maDh = Integer.parseInt(request.getParameter("maDh"));
+			List<ChiTietDonHangEntity> listOfctdh = chitietdonhangDao.getAllCTDH();
+			List<ChiTietDonHangEntity> listctdh = new ArrayList<ChiTietDonHangEntity>();
+			for (int i = 0; i < listOfctdh.size(); i++) {
+				if (listOfctdh.get(i).getMaDh().equals(maDh)) {
+					listctdh.add(listOfctdh.get(i));
+				}
+			}
+			request.setAttribute("listctdh", listctdh);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("View/ChiTietDonHangs/CTDH-list.jsp");
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
 			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
-		int maDh = Integer.parseInt(request.getParameter("maDh"));
-		List<ChiTietDonHangEntity> listOfctdh = chitietdonhangDao.getAllCTDH();
-		List<ChiTietDonHangEntity> listctdh= new ArrayList<ChiTietDonHangEntity>();
-		for (int i = 0; i < listOfctdh.size(); i++) {
-			if(listOfctdh.get(i).getMaDh().equals(maDh)) {
-				listctdh.add(listOfctdh.get(i));
-			}
-		}
-		request.setAttribute("listctdh", listctdh);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("View/ChiTietDonHangs/CTDH-list.jsp");
-		dispatcher.forward(request, response);	
-		}
+	}
 
 	private void showNewFormInserCTDH(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		UsersEntity user = (UsersEntity) session.getAttribute("user");
-		if (user == null ||  user.getAllowed()!=1) {
+		try {
+			UsersEntity user = (UsersEntity) session.getAttribute("user");
+			if (user == null || user.getAllowed() != 1) {
+				session.invalidate();
+				response.sendRedirect("error/errorShoppingContinue.html");
+				return;
+			}
+			RequestDispatcher dispatcher = request.getRequestDispatcher("View/ChiTietDonHangs/CTDH-form.jsp");
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
 			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("View/ChiTietDonHangs/CTDH-form.jsp");
-		dispatcher.forward(request, response);
 	}
 
 	private void showEditFormCTDH(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		UsersEntity user = (UsersEntity) session.getAttribute("user");
-		if (user == null || user.getAllowed()!=1) {
+		try {
+			UsersEntity user = (UsersEntity) session.getAttribute("user");
+			if (user == null || user.getAllowed() != 1) {
+				session.invalidate();
+				response.sendRedirect("error/errorShoppingContinue.html");
+				return;
+			}
+			int id = Integer.parseInt(request.getParameter("id"));
+			ChiTietDonHangEntity existingCTDH = chitietdonhangDao.getCTDH(id);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("View/ChiTietDonHangs/CTDH-form.jsp");
+			request.setAttribute("ctdh", existingCTDH);
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
 			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
-		int id = Integer.parseInt(request.getParameter("id"));
-		ChiTietDonHangEntity existingCTDH = chitietdonhangDao.getCTDH(id);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("View/ChiTietDonHangs/CTDH-form.jsp");
-		request.setAttribute("ctdh", existingCTDH);
-		dispatcher.forward(request, response);
 	}
 
 	private void insertCTDH(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		HttpSession session = request.getSession();
-		UsersEntity user = (UsersEntity) session.getAttribute("user");
-		if (user == null) {
+		try {
+			UsersEntity user = (UsersEntity) session.getAttribute("user");
+			if (user == null) {
+				session.invalidate();
+				response.sendRedirect("error/errorShoppingContinue.html");
+				return;
+			}
+			int maDh = Integer.parseInt(request.getParameter("maDh"));
+			String maSp = request.getParameter("maSp");
+			SanPhamEntity existingSanPham = SanPhamDao.getSanPham(maSp);
+
+			String soLuongStr = request.getParameter("soLuong");
+
+			Map<String, String> errors = new HashMap<String, String>();
+			int soLuong = 0;
+			try {
+				soLuong = Integer.parseInt(soLuongStr);
+				if (soLuong < 0) {
+					throw new NumberFormatException("Phải lớn hơn hoặc bằng 0");
+				}
+			} catch (NumberFormatException e) {
+				errors.put("soLuong", e.getMessage());
+			}
+
+			if (!errors.isEmpty()) {
+				request.setAttribute("error", errors);
+				try {
+					showNewFormInserCTDH(request, response);
+				} catch (ServletException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return;
+			}
+
+			double giamuahang = soLuong * Double.parseDouble(existingSanPham.getGia().toString());
+			BigDecimal gia = BigDecimal.valueOf(giamuahang);
+
+			ChiTietDonHangEntity newctdh = new ChiTietDonHangEntity(soLuong, gia, maDh, maSp);
+			chitietdonhangDao.saveCTDH(newctdh);
+			response.sendRedirect("ChiTietDonHangServlet");
+		} catch (Exception e) {
 			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
-		int maDh = Integer.parseInt(request.getParameter("maDh"));
-		String maSp = request.getParameter("maSp");
-		SanPhamEntity existingSanPham = SanPhamDao.getSanPham(maSp);
-
-		String soLuongStr = request.getParameter("soLuong");
-
-		Map<String, String> errors = new HashMap<String, String>();
-		int soLuong = 0;
-		try {
-			soLuong = Integer.parseInt(soLuongStr);
-			if (soLuong < 0) {
-				throw new NumberFormatException("Phải lớn hơn hoặc bằng 0");
-			}
-		} catch (NumberFormatException e) {
-			errors.put("soLuong", e.getMessage());
-		}
-
-		if (!errors.isEmpty()) {
-			request.setAttribute("error", errors);
-			try {
-				showNewFormInserCTDH(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return;
-		}
-
-		double giamuahang = soLuong * Double.parseDouble(existingSanPham.getGia().toString());
-		BigDecimal gia = BigDecimal.valueOf(giamuahang);
-
-		ChiTietDonHangEntity newctdh = new ChiTietDonHangEntity(soLuong, gia, maDh, maSp);
-		chitietdonhangDao.saveCTDH(newctdh);
-		response.sendRedirect("ChiTietDonHangServlet");
 	}
 
 	private void updateCTDH(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		HttpSession session = request.getSession();
-		UsersEntity user = (UsersEntity) session.getAttribute("user");
-		if (user == null || user.getAllowed()!=1) {
+		try {
+			UsersEntity user = (UsersEntity) session.getAttribute("user");
+			if (user == null || user.getAllowed() != 1) {
+				session.invalidate();
+				response.sendRedirect("error/errorShoppingContinue.html");
+				return;
+			}
+			int id = Integer.parseInt(request.getParameter("id"));
+			int maDh = Integer.parseInt(request.getParameter("maDh"));
+			String maSp = request.getParameter("maSp");
+			SanPhamEntity existingSanPham = SanPhamDao.getSanPham(maSp);
+
+			String soLuongStr = request.getParameter("soLuong");
+
+			Map<String, String> errors = new HashMap<String, String>();
+			int soLuong = 0;
+			try {
+				soLuong = Integer.parseInt(soLuongStr);
+				if (soLuong < 0) {
+					throw new NumberFormatException("Phải lớn hơn hoặc bằng 0");
+				}
+			} catch (NumberFormatException e) {
+				errors.put("soLuong", e.getMessage());
+			}
+
+			if (!errors.isEmpty()) {
+				request.setAttribute("error", errors);
+				try {
+					showEditFormCTDH(request, response);
+				} catch (ServletException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return;
+			}
+			double giamuahang = soLuong * Double.parseDouble(existingSanPham.getGia().toString());
+			BigDecimal gia = BigDecimal.valueOf(giamuahang);
+			ChiTietDonHangEntity updatectdh = new ChiTietDonHangEntity(id, soLuong, gia, maDh, maSp);
+			chitietdonhangDao.updateCTDH(updatectdh);
+			response.sendRedirect("ChiTietDonHangServlet");
+		} catch (Exception e) {
 			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
-		int id = Integer.parseInt(request.getParameter("id"));
-		int maDh = Integer.parseInt(request.getParameter("maDh"));
-		String maSp = request.getParameter("maSp");
-		SanPhamEntity existingSanPham = SanPhamDao.getSanPham(maSp);
-
-		String soLuongStr = request.getParameter("soLuong");
-
-		Map<String, String> errors = new HashMap<String, String>();
-		int soLuong = 0;
-		try {
-			soLuong = Integer.parseInt(soLuongStr);
-			if (soLuong < 0) {
-				throw new NumberFormatException("Phải lớn hơn hoặc bằng 0");
-			}
-		} catch (NumberFormatException e) {
-			errors.put("soLuong", e.getMessage());
-		}
-
-		if (!errors.isEmpty()) {
-			request.setAttribute("error", errors);
-			try {
-				showEditFormCTDH(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return;
-		}
-		double giamuahang = soLuong * Double.parseDouble(existingSanPham.getGia().toString());
-		BigDecimal gia = BigDecimal.valueOf(giamuahang);
-		ChiTietDonHangEntity updatectdh = new ChiTietDonHangEntity(id, soLuong, gia, maDh, maSp);
-		chitietdonhangDao.updateCTDH(updatectdh);
-		response.sendRedirect("ChiTietDonHangServlet");
 	}
 
 	private void deleteCTDH(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		HttpSession session = request.getSession();
-		UsersEntity user = (UsersEntity) session.getAttribute("user");
-		if (user == null || user.getAllowed()!=1) {
+		try {
+			UsersEntity user = (UsersEntity) session.getAttribute("user");
+			if (user == null || user.getAllowed() != 1) {
+				session.invalidate();
+				response.sendRedirect("error/errorShoppingContinue.html");
+				return;
+			}
+			int id = Integer.parseInt(request.getParameter("id"));
+			chitietdonhangDao.deleteCTDH(id);
+			response.sendRedirect("ChiTietDonHangServlet");
+		} catch (Exception e) {
 			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
-		int id = Integer.parseInt(request.getParameter("id"));
-		chitietdonhangDao.deleteCTDH(id);
-		response.sendRedirect("ChiTietDonHangServlet");
 	}
 
 }

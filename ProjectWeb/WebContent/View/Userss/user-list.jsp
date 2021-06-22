@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Sản phẩm</title>
+<title>Tài khoản</title>
 </head>
 <style type="text/css">
 :root { -
@@ -1022,9 +1022,13 @@ keyframes floating-lg { 0% {
 
 
 
+
+
 %
 {
 transform
+
+
 
 
 
@@ -1042,6 +1046,8 @@ transform
 
 
 
+
+
 translateY
 
 
@@ -1049,7 +1055,11 @@ translateY
 
 
 
+
+
 (
+
+
 
 
 
@@ -1067,7 +1077,11 @@ translateY
 
 
 
+
+
 )
+
+
 
 
 
@@ -1077,6 +1091,8 @@ translateY
 ;
 }
 100
+
+
 
 
 
@@ -1096,7 +1112,11 @@ transform
 
 
 
+
+
 :
+
+
 
 
 
@@ -1112,7 +1132,11 @@ translateY
 
 
 
+
+
 (
+
+
 
 
 
@@ -1130,7 +1154,11 @@ translateY
 
 
 
+
+
 )
+
+
 
 
 
@@ -1154,9 +1182,13 @@ keyframes floating { 0% {
 
 
 
+
+
 %
 {
 transform
+
+
 
 
 
@@ -1174,6 +1206,8 @@ transform
 
 
 
+
+
 translateY
 
 
@@ -1181,7 +1215,11 @@ translateY
 
 
 
+
+
 (
+
+
 
 
 
@@ -1199,7 +1237,11 @@ translateY
 
 
 
+
+
 )
+
+
 
 
 
@@ -1209,6 +1251,8 @@ translateY
 ;
 }
 100
+
+
 
 
 
@@ -1228,7 +1272,11 @@ transform
 
 
 
+
+
 :
+
+
 
 
 
@@ -1244,7 +1292,11 @@ translateY
 
 
 
+
+
 (
+
+
 
 
 
@@ -1262,7 +1314,11 @@ translateY
 
 
 
+
+
 )
+
+
 
 
 
@@ -1286,9 +1342,13 @@ keyframes floating-sm { 0% {
 
 
 
+
+
 %
 {
 transform
+
+
 
 
 
@@ -1306,6 +1366,8 @@ transform
 
 
 
+
+
 translateY
 
 
@@ -1313,7 +1375,11 @@ translateY
 
 
 
+
+
 (
+
+
 
 
 
@@ -1331,7 +1397,11 @@ translateY
 
 
 
+
+
 )
+
+
 
 
 
@@ -1341,6 +1411,8 @@ translateY
 ;
 }
 100
+
+
 
 
 
@@ -1360,7 +1432,11 @@ transform
 
 
 
+
+
 :
+
+
 
 
 
@@ -1376,7 +1452,11 @@ translateY
 
 
 
+
+
 (
+
+
 
 
 
@@ -1394,7 +1474,11 @@ translateY
 
 
 
+
+
 )
+
+
 
 
 
@@ -1616,9 +1700,13 @@ a.btn-icon-only {
 	
 	
 	
+	
+	
 	%
 	{
 	transform
+	
+	
 	
 	
 	
@@ -1636,6 +1724,8 @@ a.btn-icon-only {
 	
 	
 	
+	
+	
 	translate
 	
 	
@@ -1643,7 +1733,11 @@ a.btn-icon-only {
 	
 	
 	
+	
+	
 	(
+	
+	
 	
 	
 	
@@ -1663,7 +1757,11 @@ a.btn-icon-only {
 	
 	
 	
+	
+	
 	)
+	
+	
 	
 	
 	
@@ -1672,6 +1770,8 @@ a.btn-icon-only {
 	
 	;
 	opacity
+	
+	
 	
 	
 	
@@ -1689,7 +1789,11 @@ a.btn-icon-only {
 	
 	
 	
+	
+	
 	1
+	
+	
 	
 	
 	
@@ -1728,9 +1832,13 @@ keyframes show-navbar-collapse { 0% {
 
 
 
+
+
 %
 {
 transform
+
+
 
 
 
@@ -1748,6 +1856,8 @@ transform
 
 
 
+
+
 scale
 
 
@@ -1755,7 +1865,11 @@ scale
 
 
 
+
+
 (
+
+
 
 
 
@@ -1773,7 +1887,11 @@ scale
 
 
 
+
+
 )
+
+
 
 
 
@@ -1790,6 +1908,8 @@ opacity
 
 
 
+
+
 :
 
 
@@ -1799,7 +1919,11 @@ opacity
 
 
 
+
+
 1
+
+
 
 
 
@@ -1941,7 +2065,13 @@ p {
 	<div class="main-content">
 		<div class="container mt-7">
 			<!-- Table -->
-			<h2 class="mb-5">Tables Example</h2>
+			<h2 class="mb-5">
+				<form action="TaiKhoan" method="post">
+					<input type="submit" value="Trang quản lý" style="width: 200px" />
+					<input type="hidden" name="action" value="checkquanly" />
+
+				</form>
+			</h2>
 
 			<!-- Dark table -->
 			<div class="row mt-5">

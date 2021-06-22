@@ -7,10 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Trang Chủ</title>
-<link rel="shortcut icon" href="images/logotitle.png" />
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
-<script type="text/javascript" src="/ProjectWeb/myjs/Slider.js"></script>
-<script src="/ProjectWeb/magicslideshow.js" type="text/javascript"></script>
 <style type="text/css">
 table {
 	width: 100%;
@@ -2724,8 +2721,7 @@ table tr td #search {
 							<td colspan="3" style="text-align: left"><img
 								src="/ProjectWeb/Root/MainPage/logobesties.png" style="width: 40%" /></td>
 							<td style="text-align: right">Copy right © 2020 Cosmetics.
-								All right reserved<br /> <img src="images/bct.png"
-								style="width: 30%" />
+								All right reserved<br />
 							</td>
 						</tr>
 					</table>

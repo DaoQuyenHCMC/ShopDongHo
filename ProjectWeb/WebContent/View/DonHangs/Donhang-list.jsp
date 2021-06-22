@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Sản phẩm</title>
+<title>Đơn hàng</title>
 </head>
 <style type="text/css">
 :root { -

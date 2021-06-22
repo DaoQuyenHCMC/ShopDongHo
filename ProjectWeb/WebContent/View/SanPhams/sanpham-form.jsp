@@ -27,7 +27,7 @@
 			</form>
 			<form action="TaiKhoan" method="post">
 				<input type="submit" value="Trang quản lý" style="width: 200px" />
-				<input type="hidden" name="action" value="checkquanly" />					
+				<input type="hidden" name="action" value="checkquanly" />
 			</form>
 		</h2>
 	</div>
@@ -47,11 +47,18 @@
 			</caption>
 			<tr>
 				<th>Mã sản phẩm:</th>
-				<td><input type="text" name="maSp" size="45" maxlength="30"
-					value="<c:out value='${sanpham.maSp}' />" />
+				
+				<c:if test="${sanpham != null}">
+					<td><c:out value='${sanpham.maSp}' /> <input type="hidden"
+					name="maSp" value="<c:out value='${sanpham.maSp}' />" />
 					<p style="color: red">
 						<c:out value="${error.maSp}"></c:out>
 					</p></td>
+				</c:if>
+				<c:if test="${sanpham ==null}">
+					<td><input type="text" name="maSp" />
+					<p style="color: red"> <c:out value="${error.maSp}"></c:out></p></td>
+				</c:if>
 			</tr>
 			<tr>
 				<th>Mã loại:</th>

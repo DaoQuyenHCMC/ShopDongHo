@@ -122,13 +122,13 @@ public class UsersServlet extends HttpServlet {
 
 	private void DangXuat(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
 		try {
-			HttpSession session = request.getSession();
 			session.invalidate();
 			response.sendRedirect("index.html");
 			return;
 		} catch (Exception e) {
+			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
@@ -136,9 +136,9 @@ public class UsersServlet extends HttpServlet {
 
 	private void listUser(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
 		try {
-			HttpSession session = request.getSession();
+			
 			UsersEntity user = (UsersEntity) session.getAttribute("user");
 			if (user == null || user.getAllowed() != 1) {
 				session.invalidate();
@@ -150,6 +150,7 @@ public class UsersServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("View/Userss/user-list.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
+			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
@@ -157,9 +158,8 @@ public class UsersServlet extends HttpServlet {
 
 	private void list4UserShoppingContinue(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
 		try {
-			HttpSession session = request.getSession();
 			UsersEntity user = (UsersEntity) session.getAttribute("user");
 			if (user == null) {
 				session.invalidate();
@@ -169,6 +169,7 @@ public class UsersServlet extends HttpServlet {
 			response.sendRedirect("Cart/UserMuaHang.jsp");
 			return;
 		} catch (Exception e) {
+			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
@@ -176,11 +177,12 @@ public class UsersServlet extends HttpServlet {
 
 	private void DangKyUser(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
 		try {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("KhachHang/dangky.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
+			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
@@ -188,11 +190,12 @@ public class UsersServlet extends HttpServlet {
 
 	private void LoginUser(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
 		try {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("KhachHang/dangnhap.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
+			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
@@ -200,12 +203,13 @@ public class UsersServlet extends HttpServlet {
 
 	private void LoginQuanLy(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
 		try {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("Admin/dangnhapquanly.jsp");
 			dispatcher.forward(request, response);
 
 		} catch (Exception e) {
+			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
@@ -213,9 +217,9 @@ public class UsersServlet extends HttpServlet {
 
 	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
 		try {
-			HttpSession session = request.getSession();
+			
 			UsersEntity user = (UsersEntity) session.getAttribute("user");
 			if (user == null || user.getAllowed() != 1) {
 				session.invalidate();
@@ -225,6 +229,7 @@ public class UsersServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("View/Userss/user-form.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
+			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
@@ -232,9 +237,9 @@ public class UsersServlet extends HttpServlet {
 
 	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
 		try {
-			HttpSession session = request.getSession();
+			
 			UsersEntity user = (UsersEntity) session.getAttribute("user");
 			if (user == null || user.getAllowed() != 1) {
 				session.invalidate();
@@ -247,13 +252,14 @@ public class UsersServlet extends HttpServlet {
 			request.setAttribute("user", existingUser);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
+			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
 	}
 
 	private void insertUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-
+		HttpSession session = request.getSession();
 		try {
 			String userName = request.getParameter("userName");
 			String email = request.getParameter("email");
@@ -317,6 +323,7 @@ public class UsersServlet extends HttpServlet {
 			response.sendRedirect("UsersServlet");
 			return;
 		} catch (Exception e) {
+			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
@@ -324,7 +331,7 @@ public class UsersServlet extends HttpServlet {
 
 	private void insert4DangKyUser(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-
+		HttpSession session = request.getSession();
 		try {
 			String userName = request.getParameter("userName");
 			String email = request.getParameter("email");
@@ -391,21 +398,21 @@ public class UsersServlet extends HttpServlet {
 
 			UsersEntity newUser = new UsersEntity(userName, password, email, sdt, address, allowed, avata);
 			usersDao.saveUser(newUser);
-			HttpSession session = request.getSession();
 			session.setAttribute("user", newUser);
 			response.sendRedirect("EmailListServlet?action=add&" + "email=" + email);
 			return;
 			// response.sendRedirect("Cart/UserMuaHang.jsp");
 		} catch (Exception e) {
+			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
 	}
 
 	private void updateUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-
+		HttpSession session = request.getSession();
 		try {
-			HttpSession session = request.getSession();
+			
 			UsersEntity user = (UsersEntity) session.getAttribute("user");
 			if (user == null || user.getAllowed() != 1) {
 				session.invalidate();
@@ -425,14 +432,16 @@ public class UsersServlet extends HttpServlet {
 			response.sendRedirect("TaiKhoan");
 			return;
 		} catch (Exception e) {
+			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
 	}
 
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		HttpSession session = request.getSession();
 		try {
-			HttpSession session = request.getSession();
+			
 			UsersEntity user = (UsersEntity) session.getAttribute("user");
 			if (user == null || user.getAllowed() != 1) {
 				session.invalidate();
@@ -443,6 +452,7 @@ public class UsersServlet extends HttpServlet {
 			usersDao.deleteUser(id);
 			response.sendRedirect("TaiKhoan");
 		} catch (Exception e) {
+			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
@@ -450,8 +460,9 @@ public class UsersServlet extends HttpServlet {
 	}
 
 	private void CheckUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		HttpSession session = request.getSession();
 		try {
-			HttpSession session = request.getSession();
+			
 			UsersEntity user = (UsersEntity) session.getAttribute("user");
 			CartDao cart = (CartDao) session.getAttribute("cart");
 			String url = "KhachHang/dangnhap.jsp";
@@ -486,7 +497,7 @@ public class UsersServlet extends HttpServlet {
 					}
 				}
 				if (url.equals("KhachHang/dangnhap.jsp")) {
-					errors.put("userName", "Tên tài khoản không tồn tại");
+					errors.put("userName", "Sai tài khoản");
 				}
 
 				if (!errors.isEmpty()) {
@@ -514,6 +525,7 @@ public class UsersServlet extends HttpServlet {
 			response.sendRedirect(url);
 			return;
 		} catch (Exception e) {
+			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
@@ -522,8 +534,9 @@ public class UsersServlet extends HttpServlet {
 
 	private void CheckQuanLy(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
+		HttpSession session = request.getSession();
 		try {
-			HttpSession session = request.getSession();
+		
 			UsersEntity user = (UsersEntity) session.getAttribute("user");
 			String url = "Admin/dangnhapquanly.jsp";
 			if (user == null) {
@@ -553,7 +566,7 @@ public class UsersServlet extends HttpServlet {
 					}
 				}
 				if (url.equals("Admin/dangnhapquanly.jsp")) {
-					errors.put("userName", "Tên tài khoản không tồn tại");
+					errors.put("userName", "Sai tài khoản");
 				}
 
 				if (!errors.isEmpty()) {
@@ -576,6 +589,7 @@ public class UsersServlet extends HttpServlet {
 			return;
 
 		} catch (Exception e) {
+			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}

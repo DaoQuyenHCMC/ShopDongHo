@@ -95,137 +95,182 @@ public class LoaiSanPhamServlet extends HttpServlet {
 	private void listLoaiSanPham(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		UsersEntity user = (UsersEntity) session.getAttribute("user");
-		if (user == null || user.getAllowed()!=1) {
+		try {
+			
+			UsersEntity user = (UsersEntity) session.getAttribute("user");
+			if (user == null || user.getAllowed()!=1) {
+				session.invalidate();
+				response.sendRedirect("error/errorShoppingContinue.html");
+				return;
+			}
+			List<LoaiSanPhamEntity> listOfLoaiSanPham = loaiSanPhanDao.getAllLoaiSanPham();
+			request.setAttribute("listOfLoaiSanPham", listOfLoaiSanPham);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("View/LoaiSanPhams/loaisanpham-list.jsp");
+			dispatcher.forward(request, response);
+		}catch (Exception e) {
 			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
-		List<LoaiSanPhamEntity> listOfLoaiSanPham = loaiSanPhanDao.getAllLoaiSanPham();
-		request.setAttribute("listOfLoaiSanPham", listOfLoaiSanPham);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("View/LoaiSanPhams/loaisanpham-list.jsp");
-		dispatcher.forward(request, response);
+		
 	}
 
 	private void showNewFormInserLoaiSanPham(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		UsersEntity user = (UsersEntity) session.getAttribute("user");
-		if (user == null || user.getAllowed()!=1) {
+		try {
+		
+			UsersEntity user = (UsersEntity) session.getAttribute("user");
+			if (user == null || user.getAllowed()!=1) {
+				session.invalidate();
+				response.sendRedirect("error/errorShoppingContinue.html");
+				return;
+			}
+			RequestDispatcher dispatcher = request.getRequestDispatcher("View/LoaiSanPhams/loaisanpham-form.jsp");
+			dispatcher.forward(request, response);
+		}catch(Exception e) {
 			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("View/LoaiSanPhams/loaisanpham-form.jsp");
-		dispatcher.forward(request, response);
+		
 	}
 
 	private void showEditFormLoaiSanPham(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		UsersEntity user = (UsersEntity) session.getAttribute("user");
-		if (user == null || user.getAllowed()!=1) {
+		try {
+			
+			UsersEntity user = (UsersEntity) session.getAttribute("user");
+			if (user == null || user.getAllowed()!=1) {
+				session.invalidate();
+				response.sendRedirect("error/errorShoppingContinue.html");
+				return;
+			}
+			String maLoai = request.getParameter("maLoai");
+			LoaiSanPhamEntity existingLoaiSanPham = loaiSanPhanDao.getLoaiSanPham(maLoai);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("View/LoaiSanPhams/loaisanpham-form.jsp");
+			request.setAttribute("loaisanpham", existingLoaiSanPham);
+			dispatcher.forward(request, response);
+		}catch(Exception e) {
 			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
-		String maLoai = request.getParameter("maLoai");
-		LoaiSanPhamEntity existingLoaiSanPham = loaiSanPhanDao.getLoaiSanPham(maLoai);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("View/LoaiSanPhams/loaisanpham-form.jsp");
-		request.setAttribute("loaisanpham", existingLoaiSanPham);
-		dispatcher.forward(request, response);
+	
 	}
 
 	private void insertLoaiSanPham(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
 		HttpSession session = request.getSession();
-		UsersEntity user = (UsersEntity) session.getAttribute("user");
-		if (user == null || user.getAllowed()!=1) {
+		try {
+			UsersEntity user = (UsersEntity) session.getAttribute("user");
+			if (user == null || user.getAllowed()!=1) {
+				session.invalidate();
+				response.sendRedirect("error/errorShoppingContinue.html");
+				return;
+			}
+			String maLoai = request.getParameter("maLoai");
+			String tinhTrang = request.getParameter("tinhTrang");
+			
+			Map<String, String> errors = new HashMap<String, String>();
+			maLoai = (maLoai == null) ? "" : maLoai;
+			if (maLoai.length()==0) {
+				errors.put("maLoai", "Không được để trống");
+			} else if (maLoai.length() > 10) {
+				errors.put("maLoai", "Phải có nhiều nhất 10 ký tự");
+			}
+
+			if (!errors.isEmpty()) {
+				request.setAttribute("error", errors);
+				try {
+					showNewFormInserLoaiSanPham(request, response);
+				} catch (ServletException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return;
+			}
+			
+			LoaiSanPhamEntity newLoaiSanPham = new LoaiSanPhamEntity(maLoai, tinhTrang);
+			loaiSanPhanDao.saveLoaiSanPham(newLoaiSanPham);
+			response.sendRedirect("LoaiSanPham");
+		}catch(Exception e) {
 			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
-		String maLoai = request.getParameter("maLoai");
-		String tinhTrang = request.getParameter("tinhTrang");
-		
-		Map<String, String> errors = new HashMap<String, String>();
-		maLoai = (maLoai == null) ? "" : maLoai;
-		if (maLoai.length()==0) {
-			errors.put("maLoai", "Không được để trống");
-		} else if (maLoai.length() > 10) {
-			errors.put("maLoai", "Phải có nhiều nhất 10 ký tự");
-		}
-
-		if (!errors.isEmpty()) {
-			request.setAttribute("error", errors);
-			try {
-				showNewFormInserLoaiSanPham(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return;
-		}
-		
-		LoaiSanPhamEntity newLoaiSanPham = new LoaiSanPhamEntity(maLoai, tinhTrang);
-		loaiSanPhanDao.saveLoaiSanPham(newLoaiSanPham);
-		response.sendRedirect("LoaiSanPham");
+	
 	}
 
 	private void updateLoaiSanPham(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
 		HttpSession session = request.getSession();
-		UsersEntity user = (UsersEntity) session.getAttribute("user");
-		if (user == null || user.getAllowed()!=1) {
+		try {
+			UsersEntity user = (UsersEntity) session.getAttribute("user");
+			if (user == null || user.getAllowed()!=1) {
+				session.invalidate();
+				response.sendRedirect("error/errorShoppingContinue.html");
+				return;
+			}
+			String maLoai = request.getParameter("maLoai");
+			String tinhTrang = request.getParameter("tinhTrang");
+			
+			Map<String, String> errors = new HashMap<String, String>();
+			maLoai = (maLoai == null) ? "" : maLoai;
+			if (maLoai.length()==0) {
+				errors.put("maLoai", "Không được để trống");
+			} else if (maLoai.length() > 10) {
+				errors.put("maLoai", "Phải có nhiều nhất 10 ký tự");
+			}
+
+			if (!errors.isEmpty()) {
+				request.setAttribute("error", errors);
+				try {
+					showEditFormLoaiSanPham(request, response);
+				} catch (ServletException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return;
+			}
+
+			LoaiSanPhamEntity loaiSanPhamUpdate = new LoaiSanPhamEntity(maLoai, tinhTrang);
+			loaiSanPhanDao.updateLoaiSanPham(loaiSanPhamUpdate);
+			response.sendRedirect("LoaiSanPham");
+		}catch(Exception e) {
 			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
-		String maLoai = request.getParameter("maLoai");
-		String tinhTrang = request.getParameter("tinhTrang");
 		
-		Map<String, String> errors = new HashMap<String, String>();
-		maLoai = (maLoai == null) ? "" : maLoai;
-		if (maLoai.length()==0) {
-			errors.put("maLoai", "Không được để trống");
-		} else if (maLoai.length() > 10) {
-			errors.put("maLoai", "Phải có nhiều nhất 10 ký tự");
-		}
-
-		if (!errors.isEmpty()) {
-			request.setAttribute("error", errors);
-			try {
-				showEditFormLoaiSanPham(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return;
-		}
-
-		LoaiSanPhamEntity loaiSanPhamUpdate = new LoaiSanPhamEntity(maLoai, tinhTrang);
-		loaiSanPhanDao.updateLoaiSanPham(loaiSanPhamUpdate);
-		response.sendRedirect("LoaiSanPham");
 	}
 
 	private void deleteLoaiSanPham(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
 		HttpSession session = request.getSession();
-		UsersEntity user = (UsersEntity) session.getAttribute("user");
-		if (user == null || user.getAllowed()!=1) {
+		try {
+			UsersEntity user = (UsersEntity) session.getAttribute("user");
+			if (user == null || user.getAllowed()!=1) {
+				session.invalidate();
+				response.sendRedirect("error/errorShoppingContinue.html");
+				return;
+			}
+			String maLoai = request.getParameter("maLoai");
+			loaiSanPhanDao.deleteLoaiSanPham(maLoai);
+			response.sendRedirect("LoaiSanPham");
+		}catch(Exception e) {
 			session.invalidate();
 			response.sendRedirect("error/errorShoppingContinue.html");
 			return;
 		}
-		String maLoai = request.getParameter("maLoai");
-		loaiSanPhanDao.deleteLoaiSanPham(maLoai);
-		response.sendRedirect("LoaiSanPham");
+		
 	}
 
 }

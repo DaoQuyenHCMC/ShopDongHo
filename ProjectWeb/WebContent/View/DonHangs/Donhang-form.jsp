@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Đơn hàng</title>
 </head>
 <body>
 	<sql:setDataSource var="snapshot"
@@ -49,14 +49,6 @@
 					<input type="hidden" name="tongTien"
 					value="<c:out value='${donhang.tongTien}' />" />
 			</c:if>
-			<tr>
-				<th>Mã đơn hàng:</th>
-				<td><select name="userId">
-						<c:forEach var="kh" items="${listkh.rows}">
-							<option value="<c:out value='${kh.UserID}' />">${kh.UserID}</option>
-						</c:forEach>
-				</select></td>
-			</tr>
 			<tr>
 				<th>Họ tên người nhận:</th>
 				<td><input type="text" name="hoTen" size="45"
