@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Chi tiết đơn hàng</title>
 </head>
 <body>
 
@@ -28,8 +28,12 @@
 	<div>
 		<h1>Chi tiết đơn hàng</h1>
 		<h2>
-			<a href="/ProjectWeb/Admin/mainadmin.jsp">Trang quản lý</a> 
-			&nbsp;&nbsp;&nbsp; <a href="ChiTietDonHang?action=list">Danh
+			<form action="TaiKhoan" method="post">
+				<input type="submit" value="Trang quản lý" style="width: 200px" />
+				<input type="hidden" name="action" value="checkquanly" />		
+					
+			</form>
+			&nbsp;&nbsp;&nbsp; <a href="ChiTietDonHang">Danh
 				sách chi tiết đơn hàng</a>
 		</h2>
 	</div>

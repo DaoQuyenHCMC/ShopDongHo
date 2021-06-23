@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Thanh toán</title>
 </head>
 <body>
 	<sql:setDataSource var="snapshot"

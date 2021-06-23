@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Đơn hàng</title>
 </head>
 <body>
 	<sql:setDataSource var="snapshot"
@@ -20,8 +20,12 @@
 	<div>
 		<h1>Đơn hàng</h1>
 		<h2>
-			<a href="DonHang?action=new">Thêm đơn hàng</a>
-			&nbsp;&nbsp;&nbsp; <a href="DonHang?action=list">Danh sách
+			<form action="TaiKhoan" method="post">
+				<input type="submit" value="Trang quản lý" style="width: 200px" />
+				<input type="hidden" name="action" value="checkquanly" />		
+					
+			</form>
+			&nbsp;&nbsp;&nbsp; <a href="DonHang">Danh sách
 				đơn hàng</a>
 		</h2>
 	</div>
@@ -45,14 +49,6 @@
 					<input type="hidden" name="tongTien"
 					value="<c:out value='${donhang.tongTien}' />" />
 			</c:if>
-			<tr>
-				<th>Mã đơn hàng:</th>
-				<td><select name="userId">
-						<c:forEach var="kh" items="${listkh.rows}">
-							<option value="<c:out value='${kh.UserID}' />">${kh.UserID}</option>
-						</c:forEach>
-				</select></td>
-			</tr>
 			<tr>
 				<th>Họ tên người nhận:</th>
 				<td><input type="text" name="hoTen" size="45"

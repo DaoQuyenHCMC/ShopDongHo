@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>Giỏ hàng</title>
 <style type="text/css">
 
 @import

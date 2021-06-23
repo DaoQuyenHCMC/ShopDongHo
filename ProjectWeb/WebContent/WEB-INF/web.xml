@@ -86,14 +86,20 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<filter>
+		<filter-name>CacheControlFilter</filter-name>
+		<filter-class>Casio.Utl.CacheControlFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>CacheControlFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 
 	<filter>
 		<filter-name>CorsFilter</filter-name>
 		<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
-		<init-param>
-			<param-name>cors.allowed.origins</param-name>
-			<param-value>https://localhost:8443</param-value>
-		</init-param>
 		<init-param>
 			<param-name>cors.allowed.methods</param-name>
 			<param-value>GET,POST,PUT,DELETE,HEAD,OPTIONS</param-value>
@@ -136,16 +142,6 @@
 		</user-data-constraint>
 	</security-constraint>
 
-
-	<filter>
-		<filter-name>CacheControlFilter</filter-name>
-		<filter-class>Casio.Utl.CacheControlFilter</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>CacheControlFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
 
 
 </web-app>

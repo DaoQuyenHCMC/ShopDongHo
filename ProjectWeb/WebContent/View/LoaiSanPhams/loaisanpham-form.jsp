@@ -9,13 +9,16 @@
 </head>
 <body>
 	<div>
-		<h1>Loại sản phẩm</h1>
 		<h2>
 			<form action="LoaiSanPham" method="post">
-				<input type="submit" value="Danh sách loại sản phẩm" style="width: 200px" />
-				<input type="hidden" name="action" value="list" />
+				<input type="submit" value="Danh sách loại sản phẩm"
+					style="width: 200px" /> <input type="hidden" name="action"
+					value="list" />
 			</form>
-			<a href="Admin/mainadmin.jsp">Trang quản lý</a>
+			<form action="TaiKhoan" method="post">
+				<input type="submit" value="Trang quản lý" style="width: 200px" />
+				<input type="hidden" name="action" value="checkquanly" />
+			</form>
 		</h2>
 	</div>
 	<div align="center">
@@ -34,10 +37,21 @@
 			</caption>
 			<tr>
 				<th>Mã loại:</th>
-				<td><input type="text" name="maLoai" size="45"
+				<c:if test="${loaisanpham != null}">
+					<td><c:out value='${loaisanpham.maLoai}' /> <input
+					type="hidden" name="maLoai"
 					value="<c:out value='${loaisanpham.maLoai}' />" />
-					<p style="color: red"><c:out value="${error.maLoai}"></c:out></p>
-					</td>
+					<p style="color: red">
+						<c:out value="${error.maLoai}"></c:out>
+					</p></td>
+				</c:if>
+				<c:if test="${loaisanpham ==null}">
+					<td><input type="text" name="maLoai" />
+					<p style="color: red">
+						<c:out value="${error.maLoai}"></c:out>
+					</p></td>
+				</c:if>
+				
 			</tr>
 			<tr>
 				<th>Tình trạng:</th>
@@ -45,7 +59,8 @@
 						<option value="Còn hàng"
 							<c:if test="${donhang.trangThai eq 'Còn hàng'  }">
 							selected 
-						</c:if>>Còn hàng</option>
+						</c:if>>Còn
+							hàng</option>
 						<option value="Ngưng bán"
 							<c:if test="${donhang.trangThai eq 'Ngưng bán'  }">
 							selected 
