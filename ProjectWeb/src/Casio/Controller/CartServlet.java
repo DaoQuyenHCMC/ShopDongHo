@@ -195,7 +195,8 @@ public class CartServlet extends HttpServlet {
 			}
 			String url = "/Cart/thanhtoan.jsp";
 			CartDao cart = (CartDao) session.getAttribute("cart");
-			double tong = Double.parseDouble(request.getParameter("tong"));
+			double tong =  (Double)session.getAttribute("tong");
+			//double tong = Double.parseDouble(request.getParameter("tong"));
 			BigDecimal tongtienthanhtoan = null;
 			Map<String, String> errors = new HashMap<String, String>();
 
@@ -331,6 +332,7 @@ public class CartServlet extends HttpServlet {
 			}
 
 			request.setAttribute("tong", tong);
+			session.setAttribute("tong", tong);
 			// Store the new copy of the cart in the session
 			session.setAttribute("cart", cart);
 
